@@ -83,18 +83,25 @@
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
+	    // weather listener
 	    var weather = firebase.database().ref().child('weather');
 	    var onMirrorWeather = weather.child('onMirror');
-	    var onMirrorTime = weather.child('onMirror');
-	    var onMirrorToDo = weather.child('onMirror');
 	    onMirrorWeather.on('value', function (snap) {
 	      console.log("weather", snap.val());
 	      _this.setState({ isWeatherVisible: snap.val() });
 	    });
+	
+	    // time listener
+	    var time = firebase.database().ref().child('time');
+	    var onMirrorTime = time.child('onMirror');
 	    onMirrorTime.on('value', function (snap) {
 	      console.log("time", snap.val());
 	      _this.setState({ isTimeVisible: snap.val() });
 	    });
+	
+	    // toDo listener
+	    var toDo = firebase.database().ref().child('toDos');
+	    var onMirrorToDo = toDo.child('onMirror');
 	    onMirrorToDo.on('value', function (snap) {
 	      console.log("todos", snap.val());
 	      _this.setState({ isToDoVisible: snap.val() });
@@ -108,7 +115,7 @@
 	      fontFamily: "Noto Sans",
 	      textAlign: "center"
 	    };
-	
+	    console.log(this.state);
 	    return React.createElement(
 	      'div',
 	      { style: appStyle },
@@ -23836,8 +23843,9 @@
 	    var weather = firebase.database().ref().child('weather');
 	    weather.on('child_changed', function (weather) {
 	      // when location changes get send out api to receive weather infomation
-	      console.log(weather.key);
-	      _this.setState(_defineProperty({}, weather.key, weather.val()));
+	      if (weather.key !== "onMirror") {
+	        _this.setState(_defineProperty({}, weather.key, weather.val()));
+	      }
 	      if (weather.key === "location" || weather.key === "fahrenheit") {
 	        _this.fetchWeatherInfo();
 	      }
@@ -23859,7 +23867,6 @@
 	    });
 	  },
 	  render: function render() {
-	    console.log(this.state.apiWeather);
 	    return React.createElement(
 	      'div',
 	      null,
