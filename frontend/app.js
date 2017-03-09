@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom')
 var axios = require('axios')
 import * as firebase from 'firebase'
 var Time = require('./time.jsx')
-var Weather = require('./weather.jsx')
+var Weather = require('./weather/weather.jsx')
 
 var config = {
   apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
