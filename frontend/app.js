@@ -21,23 +21,30 @@ var App = React.createClass({
     return({
       width: window.innerWidth,
       height: window.innerHeight,
-      isTimeVisible: true,
-      isWeatherVisible: true,
+      isTimeVisible: false,
+      isWeatherVisible: false,
       location: 11362})
   },
   componentDidMount: function() {
-    let weather = firebase.database().ref().child('weather');
+    // weather listener
+    const weather = firebase.database().ref().child('weather');
     const onMirrorWeather = weather.child('onMirror');
-    const onMirrorTime = weather.child('onMirror')
-    const onMirrorToDo = weather.child('onMirror')
     onMirrorWeather.on('value', snap => {
       // console.log("weather", snap.val())
       this.setState({isWeatherVisible: snap.val()})
     })
+    
+    // time listener
+    const time = firebase.database().ref().child('time');
+    const onMirrorTime = time.child('onMirror')
     onMirrorTime.on('value', snap => {
       // console.log("time", snap.val())
       this.setState({isTimeVisible: snap.val()})
     })
+
+    // toDo listener
+    const toDo = firebase.database().ref().child('toDos');
+    const onMirrorToDo = toDo.child('onMirror')
     onMirrorToDo.on('value', snap => {
       // console.log("todos", snap.val())
       this.setState({isToDoVisible: snap.val()})
@@ -51,7 +58,6 @@ var App = React.createClass({
      fontFamily: "Noto Sans",
      textAlign: "center"
    };
-
     return(
       <div style={appStyle}>
         {(this.state.isWeatherVisible) && (<Weather />)}

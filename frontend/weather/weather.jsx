@@ -1,7 +1,7 @@
-var React = require('react')
-var axios = require('axios')
-import * as firebase from 'firebase'
-var DisplayWeatherInfo = require('./displayWeatherInfo')
+var React = require('react');
+var axios = require('axios');
+import * as firebase from 'firebase';
+var DisplayWeatherInfo = require('./displayWeatherInfo');
 
 var Weather = React.createClass({
   getInitialState() {
@@ -27,7 +27,9 @@ var Weather = React.createClass({
     const weather = firebase.database().ref().child('weather');
     weather.on('child_changed', weather => {
       // when location changes get send out api to receive weather infomation
-      this.setState({[weather.key]: weather.val()})
+      if(weather.key !== "onMirror"){
+        this.setState({[weather.key]: weather.val()})
+      }
       if (weather.key === "location" || weather.key === "fahrenheit") {
         this.fetchWeatherInfo()
       }
