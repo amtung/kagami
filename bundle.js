@@ -58,6 +58,7 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
+	var ToDo = __webpack_require__(212);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -88,15 +89,15 @@
 	    var onMirrorTime = weather.child('onMirror');
 	    var onMirrorToDo = weather.child('onMirror');
 	    onMirrorWeather.on('value', function (snap) {
-	      console.log("weather", snap.val());
+	      // console.log("weather", snap.val())
 	      _this.setState({ isWeatherVisible: snap.val() });
 	    });
 	    onMirrorTime.on('value', function (snap) {
-	      console.log("time", snap.val());
+	      // console.log("time", snap.val())
 	      _this.setState({ isTimeVisible: snap.val() });
 	    });
 	    onMirrorToDo.on('value', function (snap) {
-	      console.log("todos", snap.val());
+	      // console.log("todos", snap.val())
 	      _this.setState({ isToDoVisible: snap.val() });
 	    });
 	  },
@@ -113,7 +114,8 @@
 	      'div',
 	      { style: appStyle },
 	      this.state.isWeatherVisible && React.createElement(Weather, null),
-	      this.state.isTimeVisible && React.createElement(Time, null)
+	      this.state.isTimeVisible && React.createElement(Time, null),
+	      this.state.isToDoVisible && React.createElement(ToDo, null)
 	    );
 	  }
 	});
@@ -23743,29 +23745,51 @@
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
 	
 	var Time = React.createClass({
-	  displayName: "Time",
+	  displayName: 'Time',
 	
 	  getInitialState: function getInitialState() {
-	    var time = this.generateTime();
-	    return time;
+	    return { time: null };
 	  },
-	  generateTime: function generateTime() {
-	    var now = new Date();
-	    var offset = now.getTimezoneOffset() / 60;
-	    var hours = (now.getUTCHours() - offset) % 12;
-	    var minutes = now.getUTCMinutes();
-	    if (minutes < 10) {
-	      minutes = "0" + minutes;
-	    }
-	    return { time: hours + ":" + minutes };
+	  fetchTime: function fetchTime(lat, lng) {
+	    var that = this;
+	    axios.get("http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=" + lat + "&lng=" + lng).then(function (time) {
+	      that.setState({ time: time.data.formatted });
+	    });
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.fetchLatLng();
+	    var time = firebase.database().ref().child('time');
+	    time.on('child_changed', function (time) {
+	      if (time.key === "location") {
+	        _this.fetchLatLng();
+	      }
+	    });
+	  },
+	  fetchLatLng: function fetchLatLng() {
+	    var that = this;
+	    axios.get("https://kagami-b6130.firebaseio.com/time.json").then(function (time) {
+	      axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + time.data.location + "&key=AIzaSyCRFcsIP8jJO4AGISrCI-Iou_en_j6rG08").then(function (location) {
+	        var pos = location.data.results[0].geometry.location;
+	        that.fetchTime(pos.lat, pos.lng);
+	      });
+	    });
 	  },
 	  render: function render() {
-	
 	    var timeStyle = {
 	      color: "black",
 	      width: "100px",
@@ -23774,7 +23798,7 @@
 	      textAlign: "center"
 	    };
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      this.state.time
 	    );
@@ -23836,7 +23860,6 @@
 	    var weather = firebase.database().ref().child('weather');
 	    weather.on('child_changed', function (weather) {
 	      // when location changes get send out api to receive weather infomation
-	      console.log(weather.key);
 	      _this.setState(_defineProperty({}, weather.key, weather.val()));
 	      if (weather.key === "location" || weather.key === "fahrenheit") {
 	        _this.fetchWeatherInfo();
@@ -23859,7 +23882,6 @@
 	    });
 	  },
 	  render: function render() {
-	    console.log(this.state.apiWeather);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -23918,6 +23940,69 @@
 	};
 	
 	module.exports = DisplayWeatherInfo;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
+	
+	var ToDo = React.createClass({
+	  displayName: 'ToDo',
+	
+	  getInitialState: function getInitialState() {
+	    return { todos: null };
+	  },
+	  fetchTodos: function fetchTodos() {
+	    var that = this;
+	    axios.get("https://kagami-b6130.firebaseio.com/toDos.json").then(function (todos) {
+	      that.setState({ todos: todos.data });
+	    });
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.fetchTodos();
+	    var todos = firebase.database().ref().child('toDos');
+	    todos.on('child_changed', function (todo) {
+	      _this.fetchTodos();
+	    });
+	  },
+	  render: function render() {
+	    console.log(this.state);
+	    var display = [];
+	    if (this.state.todos) {
+	      var todos = this.state.todos.lastest;
+	      for (var x = 1; x < todos.length; x++) {
+	        console.log(todos[x]);
+	        display.push(React.createElement(
+	          'div',
+	          { key: x },
+	          todos[x].title
+	        ));
+	      }
+	    } else {
+	      display.push(React.createElement('div', null));
+	    }
+	    return React.createElement(
+	      'div',
+	      null,
+	      display
+	    );
+	  }
+	});
+	
+	module.exports = ToDo;
 
 /***/ }
 /******/ ]);

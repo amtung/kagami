@@ -9,7 +9,7 @@ var Weather = React.createClass({
       location: null,
       apiWeather: null,
       fahrenheit: true,
-      x: 0, 
+      x: 0,
       y: 0,
     })
   },
@@ -27,7 +27,6 @@ var Weather = React.createClass({
     const weather = firebase.database().ref().child('weather');
     weather.on('child_changed', weather => {
       // when location changes get send out api to receive weather infomation
-      console.log(weather.key)
       this.setState({[weather.key]: weather.val()})
       if (weather.key === "location" || weather.key === "fahrenheit") {
         this.fetchWeatherInfo()
@@ -44,11 +43,10 @@ var Weather = React.createClass({
     })
   },
   render() {
-    console.log(this.state.apiWeather)
     return(
       <div>
-        {this.state.apiWeather 
-          ? <DisplayWeatherInfo weather={this.state.apiWeather}/> 
+        {this.state.apiWeather
+          ? <DisplayWeatherInfo weather={this.state.apiWeather}/>
           : <div>loading</div>}
       </div>
     )
