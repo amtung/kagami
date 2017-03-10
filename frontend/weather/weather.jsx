@@ -9,7 +9,7 @@ var Weather = React.createClass({
       location: null,
       apiWeather: null,
       fahrenheit: true,
-      x: 0, 
+      x: 0,
       y: 0,
     })
   },
@@ -47,8 +47,8 @@ var Weather = React.createClass({
   render() {
     return(
       <div>
-        {this.state.apiWeather 
-          ? <DisplayWeatherInfo weather={this.state.apiWeather}/> 
+        {this.state.apiWeather
+          ? <DisplayWeatherInfo weather={this.state.apiWeather}/>
           : <div>loading</div>}
       </div>
     )

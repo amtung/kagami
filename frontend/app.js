@@ -4,6 +4,7 @@ var axios = require('axios')
 import * as firebase from 'firebase'
 var Time = require('./time.jsx')
 var Weather = require('./weather/weather.jsx')
+var ToDo = require('./todo.jsx')
 
 var config = {
   apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -20,8 +21,8 @@ var App = React.createClass({
     return({
       width: window.innerWidth,
       height: window.innerHeight,
-      isTimeVisible: true,
-      isWeatherVisible: true,
+      isTimeVisible: false,
+      isWeatherVisible: false,
       location: 11362})
   },
   componentDidMount: function() {
@@ -29,7 +30,7 @@ var App = React.createClass({
     const weather = firebase.database().ref().child('weather');
     const onMirrorWeather = weather.child('onMirror');
     onMirrorWeather.on('value', snap => {
-      console.log("weather", snap.val())
+      // console.log("weather", snap.val())
       this.setState({isWeatherVisible: snap.val()})
     })
     
@@ -37,7 +38,7 @@ var App = React.createClass({
     const time = firebase.database().ref().child('time');
     const onMirrorTime = time.child('onMirror')
     onMirrorTime.on('value', snap => {
-      console.log("time", snap.val())
+      // console.log("time", snap.val())
       this.setState({isTimeVisible: snap.val()})
     })
 
@@ -45,7 +46,7 @@ var App = React.createClass({
     const toDo = firebase.database().ref().child('toDos');
     const onMirrorToDo = toDo.child('onMirror')
     onMirrorToDo.on('value', snap => {
-      console.log("todos", snap.val())
+      // console.log("todos", snap.val())
       this.setState({isToDoVisible: snap.val()})
     })
   },
@@ -57,11 +58,11 @@ var App = React.createClass({
      fontFamily: "Noto Sans",
      textAlign: "center"
    };
-  console.log(this.state)
     return(
       <div style={appStyle}>
         {(this.state.isWeatherVisible) && (<Weather />)}
         {(this.state.isTimeVisible) && (<Time />)}
+        {(this.state.isToDoVisible) && (<ToDo />)}
       </div>
     )
   }
