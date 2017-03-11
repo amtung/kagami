@@ -25504,26 +25504,25 @@
 	      _this.fetchTodos();
 	    });
 	  },
-	  render: function render() {
-	    console.log(this.state);
+	  displayTodos: function displayTodos() {
 	    var display = [];
-	    if (this.state.todos) {
-	      var todos = this.state.todos.lastest;
-	      for (var x = 1; x < todos.length; x++) {
-	        console.log(todos[x]);
-	        display.push(React.createElement(
-	          'div',
-	          { key: x },
-	          todos[x].title
-	        ));
-	      }
-	    } else {
-	      display.push(React.createElement('div', null));
+	    var todos = this.state.todos.lastest;
+	    for (var x = 1; x < todos.length; x++) {
+	      display.push(React.createElement(
+	        'div',
+	        { key: x },
+	        todos[x].title
+	      ));
 	    }
+	    return display;
+	  },
+	  render: function render() {
+	    var todos = this.state.todos;
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      display
+	      todos && this.displayTodos()
 	    );
 	  }
 	});

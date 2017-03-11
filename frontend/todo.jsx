@@ -19,21 +19,19 @@ var ToDo = React.createClass({
       this.fetchTodos()
     })
   },
-  render: function() {
-    console.log(this.state)
-    let display = []
-    if (this.state.todos) {
-      let todos = this.state.todos.lastest
-      for(let x = 1; x < todos.length; x++) {
-        console.log(todos[x])
-        display.push(<div key={x}>{todos[x].title}</div>)
-      }
-    } else {
-      display.push(<div></div>)
+  displayTodos: function() {
+    let display = [];
+    const todos = this.state.todos.lastest;
+    for(let x = 1; x < todos.length; x++) {
+      display.push(<div key={x}>{todos[x].title}</div>)
     }
+    return display;
+  },
+  render: function() {
+    const { todos } = this.state
     return(
       <div>
-        {display}
+        {todos && this.displayTodos()}
       </div>
     )
   }
