@@ -16,7 +16,15 @@ module.exports = {
         query: {
           presets: ['es2015', `react`]
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+      },
+      {
+        test: /\inline.svg$/,
+        loader: 'babel!svg-react',
+      },
     ]
   },
   devtool: 'source-maps',

@@ -4,7 +4,9 @@ var axios = require('axios')
 import * as firebase from 'firebase'
 var Time = require('./time.jsx')
 var Weather = require('./weather/weather.jsx')
-var ToDo = require('./todo.jsx')
+var ToDo = require('./todo.jsx');
+
+require('../style.css')
 
 var config = {
   apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -52,12 +54,12 @@ var App = React.createClass({
   },
   render: function() {
     var appStyle = {
-     color: "black",
-     width: "100%",
-     height: "100%",
-     fontFamily: "Noto Sans",
-     textAlign: "center"
-   };
+      color: "black",
+      width: "100%",
+      height: "100%",
+      fontFamily: "Noto Sans",
+      textAlign: "center"
+    };
     return(
       <div style={appStyle}>
         {(this.state.isWeatherVisible) && (<Weather />)}

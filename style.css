@@ -1,7 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: "#ffde00";
-  color: "#333";
-  font-family: "Noto Sans";
-  text-align: "center";
+  background: red;
+  color: #333;
+  font-family: Noto Sans;
+  text-align: center;
   margin: 0;
+}
+
+/*weather*/
+.weather {
+  width: 25%;
+}
+.mainWeather{
+  display: flex;
+}
+.tempContainer{
+  display: flex;
+  flex-direction: column;
+}
+.weather_icon {
+  width: 50%;
+  height: auto;
 }
