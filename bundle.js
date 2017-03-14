@@ -90,7 +90,6 @@
 	    var weather = firebase.database().ref().child('weather');
 	    var onMirrorWeather = weather.child('onMirror');
 	    onMirrorWeather.on('value', function (snap) {
-	      // console.log("weather", snap.val())
 	      _this.setState({ isWeatherVisible: snap.val() });
 	    });
 	
@@ -98,7 +97,6 @@
 	    var time = firebase.database().ref().child('time');
 	    var onMirrorTime = time.child('onMirror');
 	    onMirrorTime.on('value', function (snap) {
-	      // console.log("time", snap.val())
 	      _this.setState({ isTimeVisible: snap.val() });
 	    });
 	
@@ -106,7 +104,6 @@
 	    var toDo = firebase.database().ref().child('toDos');
 	    var onMirrorToDo = toDo.child('onMirror');
 	    onMirrorToDo.on('value', function (snap) {
-	      console.log("todos", snap.val());
 	      _this.setState({ isToDoVisible: snap.val() });
 	    });
 	  },
@@ -23774,7 +23771,6 @@
 	  fetchTime: function fetchTime(lat, lng) {
 	    var that = this;
 	    axios.get("http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=" + lat + "&lng=" + lng).then(function (time) {
-	      console.log('fetchTime');
 	      that.setState({ time: time.data.formatted });
 	    });
 	  },
@@ -23811,7 +23807,6 @@
 	    return month + " " + day + ", " + year;
 	  },
 	  render: function render() {
-	    console.log("TIME STATE ===>", this.state);
 	    var timeStyle = {
 	      color: "white",
 	      fontSize: "72px",
@@ -23942,6 +23937,7 @@
 	    });
 	  },
 	  render: function render() {
+	    console.log(this.state.apiWeather);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -23971,6 +23967,7 @@
 	  'shower rain': __webpack_require__(253),
 	  'rain': __webpack_require__(254),
 	  'thunderstorm': __webpack_require__(255),
+	  'light snow': __webpack_require__(256),
 	  'snow': __webpack_require__(256),
 	  'mist': __webpack_require__(257),
 	  'overcast clouds': __webpack_require__(257)
@@ -23979,7 +23976,11 @@
 	var DisplayWeatherInfo = function DisplayWeatherInfo(_ref) {
 	  var weather = _ref.weather;
 	
-	  var Special = weatherIcons[weather.weather[0].description];
+	  var icon = weatherIcons[weather.weather[0].description];
+	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
+	  var Special = icon ? icon : weatherIcons['clear sky'];
+	  console.log(Special);
+	  console.log(weather.weather[0].description);
 	  return React.createElement(
 	    'div',
 	    { className: 'weather' },
@@ -25659,7 +25660,7 @@
 		// return the list of modules as css string
 		list.toString = function toString() {
 			return this.map(function (item) {
-				var content = cssWithMappingToString(item);
+				const content = cssWithMappingToString(item);
 				if(item[2]) {
 					return "@media " + item[2] + "{" + content + "}";
 				} else {
@@ -25725,6 +25726,8 @@
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
+	  //Example (Extra space between slashes added to solve Safari bug. Exclude space in production):
+	  //     / /# sourceMappingURL=foo.js.map           /*# sourceMappingURL=foo.js.map */
 	  /(?:\/\/[@#][ \t]+sourceMappingURL=([^\s'"]+?)[ \t]*$)|(?:\/\*[@#][ \t]+sourceMappingURL=([^\*]+?)[ \t]*(?:\*\/){1}[ \t]*$)/mg
 	
 	function decodeBase64(base64) {

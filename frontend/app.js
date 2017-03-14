@@ -32,7 +32,6 @@ var App = React.createClass({
     const weather = firebase.database().ref().child('weather');
     const onMirrorWeather = weather.child('onMirror');
     onMirrorWeather.on('value', snap => {
-      // console.log("weather", snap.val())
       this.setState({isWeatherVisible: snap.val()})
     })
 
@@ -40,7 +39,6 @@ var App = React.createClass({
     const time = firebase.database().ref().child('time');
     const onMirrorTime = time.child('onMirror')
     onMirrorTime.on('value', snap => {
-      // console.log("time", snap.val())
       this.setState({isTimeVisible: snap.val()})
     })
 
@@ -48,7 +46,6 @@ var App = React.createClass({
     const toDo = firebase.database().ref().child('toDos');
     const onMirrorToDo = toDo.child('onMirror')
     onMirrorToDo.on('value', snap => {
-      console.log("todos", snap.val())
       this.setState({isToDoVisible: snap.val()})
     })
   },
