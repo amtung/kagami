@@ -1,19 +1,8 @@
 const React = require('react');
-const weatherIcons = {
-  'clear sky': require('./weather_icons/Sun.inline.svg'),
-  'few clouds': require('./weather_icons/Cloud-Sun.inline.svg'),
-  'scattered clouds': require('./weather_icons/Cloud-Sun.inline.svg'),
-  'broken clouds': require('./weather_icons/Cloud-Sun.inline.svg'),
-  'shower rain': require('./weather_icons/Cloud-Rain.inline.svg'),
-  'rain': require('./weather_icons/Cloud-Rain-Sun.inline.svg'),
-  'thunderstorm': require('./weather_icons/Cloud-Lightning.inline.svg'),
-  'light snow': require('./weather_icons/Cloud-Snow-Alt.inline.svg'),
-  'snow': require('./weather_icons/Cloud-Snow-Alt.inline.svg'),
-  'mist': require('./weather_icons/Cloud-Fog.inline.svg'),
-  'overcast clouds': require('./weather_icons/Cloud-Fog.inline.svg')
-}
+const weatherIcons = require('./icons').default;
 
 const DisplayWeatherInfo = ({ weather }) => {
+  console.log(weatherIcons)
   const icon = weatherIcons[weather.weather[0].description]
   // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
   const Special = icon ? icon : weatherIcons['clear sky']
