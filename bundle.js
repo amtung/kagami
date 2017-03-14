@@ -58,9 +58,9 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
-	var ToDo = __webpack_require__(258);
+	var ToDo = __webpack_require__(259);
 	
-	__webpack_require__(259);
+	__webpack_require__(260);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -23885,6 +23885,8 @@
 	    return {
 	      location: null,
 	      apiWeather: null,
+	      apiWeather5Day: null,
+	      isFiveDayForecast: false,
 	      fahrenheit: true,
 	      x: 0,
 	      y: 0
@@ -23899,14 +23901,16 @@
 	          location = _ref$data.location,
 	          fahrenheit = _ref$data.fahrenheit,
 	          x = _ref$data.x,
-	          y = _ref$data.y;
+	          y = _ref$data.y,
+	          isFiveDayForecast = _ref$data.isFiveDayForecast;
 	
-	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y });
-	      return;
+	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y, isFiveDayForecast: isFiveDayForecast });
+	      return isFiveDayForecast;
 	    })
 	    // get weather infomation based on user's zipcode
-	    .then(function () {
-	      return _this.fetchWeatherInfo();
+	    .then(function (isFiveDay) {
+	      _this.fetchWeatherInfo();
+	      if (isFiveDay) _this.fetch5Day();
 	    });
 	
 	    // listen for all changes in the weather object
@@ -23918,6 +23922,12 @@
 	      }
 	      if (weather.key === "location" || weather.key === "fahrenheit") {
 	        _this.fetchWeatherInfo();
+	      }
+	      if (weather.key === "location" && _this.state.isFiveDayForecast) {
+	        _this.fetch5Day();
+	      }
+	      if (weather.key === "isFiveDayForecast" && weather.val()) {
+	        _this.fetch5Day();
 	      }
 	    });
 	  },
@@ -23936,8 +23946,42 @@
 	      _this2.setState({ apiWeather: data });
 	    });
 	  },
+	  fetch5Day: function fetch5Day() {
+	    var _this3 = this;
+	
+	    var _state2 = this.state,
+	        location = _state2.location,
+	        fahrenheit = _state2.fahrenheit;
+	    // imperial == fahrenheit, metric ==  Celsius
+	
+	    var temp = fahrenheit ? 'imperial' : 'metric';
+	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref3) {
+	      var data = _ref3.data;
+	
+	      console.log("fetch5Day", data);
+	      _this3.setState({ apiWeather5Day: data });
+	    });
+	  },
+	  showFiveDayForcast: function showFiveDayForcast() {
+	    var list = this.state.apiWeather5Day.list;
+	
+	    return list.splice(0, 4).map(function (day, indx) {
+	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
+	    });
+	  },
 	  render: function render() {
-	    console.log(this.state.apiWeather);
+	    var _state3 = this.state,
+	        apiWeather = _state3.apiWeather,
+	        apiWeather5Day = _state3.apiWeather5Day,
+	        isFiveDayForecast = _state3.isFiveDayForecast;
+	
+	    var fiveDayStyle = {
+	      position: 'absolute',
+	      top: 200,
+	      left: 300,
+	      width: '50%',
+	      display: 'flex'
+	    };
 	    return React.createElement(
 	      'div',
 	      null,
@@ -23945,6 +23989,11 @@
 	        'div',
 	        null,
 	        'loading'
+	      ),
+	      isFiveDayForecast && apiWeather5Day && React.createElement(
+	        'div',
+	        { style: fiveDayStyle },
+	        this.showFiveDayForcast()
 	      )
 	    );
 	  }
@@ -23959,23 +24008,12 @@
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var weatherIcons = {
-	  'clear sky': __webpack_require__(212),
-	  'few clouds': __webpack_require__(252),
-	  'scattered clouds': __webpack_require__(252),
-	  'broken clouds': __webpack_require__(252),
-	  'shower rain': __webpack_require__(253),
-	  'rain': __webpack_require__(254),
-	  'thunderstorm': __webpack_require__(255),
-	  'light snow': __webpack_require__(256),
-	  'snow': __webpack_require__(256),
-	  'mist': __webpack_require__(257),
-	  'overcast clouds': __webpack_require__(257)
-	};
+	var weatherIcons = __webpack_require__(212).default;
 	
 	var DisplayWeatherInfo = function DisplayWeatherInfo(_ref) {
 	  var weather = _ref.weather;
 	
+	  console.log(weatherIcons);
 	  var icon = weatherIcons[weather.weather[0].description];
 	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
 	  var Special = icon ? icon : weatherIcons['clear sky'];
@@ -24024,8 +24062,31 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  'clear sky': __webpack_require__(213),
+	  'few clouds': __webpack_require__(253),
+	  'scattered clouds': __webpack_require__(253),
+	  'broken clouds': __webpack_require__(253),
+	  'shower rain': __webpack_require__(254),
+	  'rain': __webpack_require__(255),
+	  'thunderstorm': __webpack_require__(256),
+	  'light snow': __webpack_require__(257),
+	  'snow': __webpack_require__(257),
+	  'mist': __webpack_require__(258),
+	  'overcast clouds': __webpack_require__(258)
+	};
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -24058,10 +24119,10 @@
 	});
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var forEach  = __webpack_require__(214);
+	var forEach  = __webpack_require__(215);
 	var ATTR_KEY = 'data-svgreactloader';
 	
 	var MODULE = {
@@ -24106,13 +24167,13 @@
 
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(215),
-	    baseEach = __webpack_require__(216),
-	    castFunction = __webpack_require__(250),
-	    isArray = __webpack_require__(232);
+	var arrayEach = __webpack_require__(216),
+	    baseEach = __webpack_require__(217),
+	    castFunction = __webpack_require__(251),
+	    isArray = __webpack_require__(233);
 	
 	/**
 	 * Iterates over elements of `collection` and invokes `iteratee` for each element.
@@ -24153,7 +24214,7 @@
 
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports) {
 
 	/**
@@ -24181,11 +24242,11 @@
 
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(217),
-	    createBaseEach = __webpack_require__(249);
+	var baseForOwn = __webpack_require__(218),
+	    createBaseEach = __webpack_require__(250);
 	
 	/**
 	 * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -24201,11 +24262,11 @@
 
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(218),
-	    keys = __webpack_require__(220);
+	var baseFor = __webpack_require__(219),
+	    keys = __webpack_require__(221);
 	
 	/**
 	 * The base implementation of `_.forOwn` without support for iteratee shorthands.
@@ -24223,10 +24284,10 @@
 
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(219);
+	var createBaseFor = __webpack_require__(220);
 	
 	/**
 	 * The base implementation of `baseForOwn` which iterates over `object`
@@ -24245,7 +24306,7 @@
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports) {
 
 	/**
@@ -24276,12 +24337,12 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(221),
-	    baseKeys = __webpack_require__(242),
-	    isArrayLike = __webpack_require__(246);
+	var arrayLikeKeys = __webpack_require__(222),
+	    baseKeys = __webpack_require__(243),
+	    isArrayLike = __webpack_require__(247);
 	
 	/**
 	 * Creates an array of the own enumerable property names of `object`.
@@ -24319,15 +24380,15 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseTimes = __webpack_require__(222),
-	    isArguments = __webpack_require__(223),
-	    isArray = __webpack_require__(232),
-	    isBuffer = __webpack_require__(233),
-	    isIndex = __webpack_require__(236),
-	    isTypedArray = __webpack_require__(237);
+	var baseTimes = __webpack_require__(223),
+	    isArguments = __webpack_require__(224),
+	    isArray = __webpack_require__(233),
+	    isBuffer = __webpack_require__(234),
+	    isIndex = __webpack_require__(237),
+	    isTypedArray = __webpack_require__(238);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -24374,7 +24435,7 @@
 
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	/**
@@ -24400,11 +24461,11 @@
 
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsArguments = __webpack_require__(224),
-	    isObjectLike = __webpack_require__(231);
+	var baseIsArguments = __webpack_require__(225),
+	    isObjectLike = __webpack_require__(232);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -24442,11 +24503,11 @@
 
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(225),
-	    isObjectLike = __webpack_require__(231);
+	var baseGetTag = __webpack_require__(226),
+	    isObjectLike = __webpack_require__(232);
 	
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -24466,12 +24527,12 @@
 
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(226),
-	    getRawTag = __webpack_require__(229),
-	    objectToString = __webpack_require__(230);
+	var Symbol = __webpack_require__(227),
+	    getRawTag = __webpack_require__(230),
+	    objectToString = __webpack_require__(231);
 	
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -24500,10 +24561,10 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(227);
+	var root = __webpack_require__(228);
 	
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -24512,10 +24573,10 @@
 
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(228);
+	var freeGlobal = __webpack_require__(229);
 	
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -24527,7 +24588,7 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -24538,10 +24599,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(226);
+	var Symbol = __webpack_require__(227);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -24590,7 +24651,7 @@
 
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -24618,7 +24679,7 @@
 
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/**
@@ -24653,7 +24714,7 @@
 
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports) {
 
 	/**
@@ -24685,11 +24746,11 @@
 
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(227),
-	    stubFalse = __webpack_require__(235);
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(228),
+	    stubFalse = __webpack_require__(236);
 	
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -24727,10 +24788,10 @@
 	
 	module.exports = isBuffer;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(234)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)(module)))
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -24746,7 +24807,7 @@
 
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/**
@@ -24770,7 +24831,7 @@
 
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -24798,12 +24859,12 @@
 
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsTypedArray = __webpack_require__(238),
-	    baseUnary = __webpack_require__(240),
-	    nodeUtil = __webpack_require__(241);
+	var baseIsTypedArray = __webpack_require__(239),
+	    baseUnary = __webpack_require__(241),
+	    nodeUtil = __webpack_require__(242);
 	
 	/* Node.js helper references. */
 	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -24831,12 +24892,12 @@
 
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(225),
-	    isLength = __webpack_require__(239),
-	    isObjectLike = __webpack_require__(231);
+	var baseGetTag = __webpack_require__(226),
+	    isLength = __webpack_require__(240),
+	    isObjectLike = __webpack_require__(232);
 	
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -24897,7 +24958,7 @@
 
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -24938,7 +24999,7 @@
 
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports) {
 
 	/**
@@ -24958,10 +25019,10 @@
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(228);
+	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(229);
 	
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -24984,14 +25045,14 @@
 	
 	module.exports = nodeUtil;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(234)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235)(module)))
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isPrototype = __webpack_require__(243),
-	    nativeKeys = __webpack_require__(244);
+	var isPrototype = __webpack_require__(244),
+	    nativeKeys = __webpack_require__(245);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -25023,7 +25084,7 @@
 
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -25047,10 +25108,10 @@
 
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(245);
+	var overArg = __webpack_require__(246);
 	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = overArg(Object.keys, Object);
@@ -25059,7 +25120,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports) {
 
 	/**
@@ -25080,11 +25141,11 @@
 
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(247),
-	    isLength = __webpack_require__(239);
+	var isFunction = __webpack_require__(248),
+	    isLength = __webpack_require__(240);
 	
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -25119,11 +25180,11 @@
 
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(225),
-	    isObject = __webpack_require__(248);
+	var baseGetTag = __webpack_require__(226),
+	    isObject = __webpack_require__(249);
 	
 	/** `Object#toString` result references. */
 	var asyncTag = '[object AsyncFunction]',
@@ -25162,7 +25223,7 @@
 
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports) {
 
 	/**
@@ -25199,10 +25260,10 @@
 
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(246);
+	var isArrayLike = __webpack_require__(247);
 	
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -25237,10 +25298,10 @@
 
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(251);
+	var identity = __webpack_require__(252);
 	
 	/**
 	 * Casts `value` to `identity` if it's not a function.
@@ -25257,7 +25318,7 @@
 
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports) {
 
 	/**
@@ -25284,13 +25345,13 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25323,13 +25384,13 @@
 	});
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25362,13 +25423,13 @@
 	});
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25401,13 +25462,13 @@
 	});
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25440,13 +25501,13 @@
 	});
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25479,13 +25540,13 @@
 	});
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(213)(__webpack_require__(38));
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
 	
 	module.exports = React.createClass({
 	
@@ -25518,7 +25579,7 @@
 	});
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25606,16 +25667,16 @@
 	module.exports = ToDo;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(260);
+	var content = __webpack_require__(261);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(268)(content, {});
+	var update = __webpack_require__(269)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25632,21 +25693,21 @@
 	}
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(261)();
+	exports = module.exports = __webpack_require__(262)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n  position: absolute;\n  width: 25%;\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n  width: 25%;\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25704,7 +25765,7 @@
 		if (!cssMapping) {
 			return content;
 		}
-		var convertSourceMap = __webpack_require__(262);
+		var convertSourceMap = __webpack_require__(263);
 		var sourceMapping = convertSourceMap.fromObject(cssMapping).toComment({multiline: true});
 		var sourceURLs = cssMapping.sources.map(function (source) {
 			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
@@ -25714,7 +25775,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/* eslint-disable */
@@ -25722,7 +25783,7 @@
 	// XXXXX: This file should not exist. Working around a core level bug
 	// that prevents using fs at loaders.
 	//var fs = require('fs'); // XXX
-	var path = __webpack_require__(267);
+	var path = __webpack_require__(268);
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
@@ -25861,10 +25922,10 @@
 	  }
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(263).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264).Buffer))
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -25877,9 +25938,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(264)
-	var ieee754 = __webpack_require__(265)
-	var isArray = __webpack_require__(266)
+	var base64 = __webpack_require__(265)
+	var ieee754 = __webpack_require__(266)
+	var isArray = __webpack_require__(267)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -27660,7 +27721,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -27780,7 +27841,7 @@
 
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -27870,7 +27931,7 @@
 
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -27881,7 +27942,7 @@
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -28112,7 +28173,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
