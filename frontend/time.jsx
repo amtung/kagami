@@ -10,7 +10,6 @@ var Time = React.createClass({
     var that = this
     axios.get("http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=" + lat + "&lng=" + lng).then(
       function(time) {
-        console.log('fetchTime')
         that.setState({time: time.data.formatted})
       }
     )
@@ -44,7 +43,6 @@ var Time = React.createClass({
     return month + " " + day + ", " + year
   },
   render: function() {
-    console.log("TIME STATE ===>", this.state)
     let timeStyle = {
       color: "white",
       fontSize: "72px",

@@ -45,6 +45,7 @@ var Weather = React.createClass({
     })
   },
   render() {
+    console.log(this.state.apiWeather)
     return(
       <div>
         {this.state.apiWeather
