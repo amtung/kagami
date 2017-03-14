@@ -106,17 +106,17 @@
 	    var toDo = firebase.database().ref().child('toDos');
 	    var onMirrorToDo = toDo.child('onMirror');
 	    onMirrorToDo.on('value', function (snap) {
-	      // console.log("todos", snap.val())
+	      console.log("todos", snap.val());
 	      _this.setState({ isToDoVisible: snap.val() });
 	    });
 	  },
 	  render: function render() {
 	    var appStyle = {
-	      color: "black",
+	      color: "white",
+	      position: "relative",
 	      width: "100%",
-	      height: "100%",
-	      fontFamily: "Noto Sans",
-	      textAlign: "center"
+	      height: "100vh",
+	      fontFamily: "Noto Sans"
 	    };
 	    return React.createElement(
 	      'div',
@@ -23769,7 +23769,7 @@
 	  displayName: 'Time',
 	
 	  getInitialState: function getInitialState() {
-	    return { time: null };
+	    return { time: null, militaryTime: false };
 	  },
 	  fetchTime: function fetchTime(lat, lng) {
 	    var that = this;
@@ -23784,7 +23784,7 @@
 	    this.fetchLatLng();
 	    var time = firebase.database().ref().child('time');
 	    time.on('child_changed', function (time) {
-	      if (time.key === "location") {
+	      if (time.key === "location" || time.key === "x" || time.key === "y" || time.key === "militaryTime") {
 	        _this.fetchLatLng();
 	      }
 	    });
@@ -23792,24 +23792,73 @@
 	  fetchLatLng: function fetchLatLng() {
 	    var that = this;
 	    axios.get("https://kagami-b6130.firebaseio.com/time.json").then(function (time) {
+	      that.setState({ militaryTime: time.data.militaryTime, coords: [time.data.x, time.data.y] });
 	      axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + time.data.location + "&key=AIzaSyCRFcsIP8jJO4AGISrCI-Iou_en_j6rG08").then(function (location) {
 	        var pos = location.data.results[0].geometry.location;
 	        that.fetchTime(pos.lat, pos.lng);
 	      });
 	    });
 	  },
+	  parseDate: function parseDate(date) {
+	    var month = void 0,
+	        day = void 0,
+	        year = void 0;
+	    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	    date = date.split("-");
+	    month = months[parseInt(date[1]) - 1];
+	    day = parseInt(date[2]);
+	    year = date[0];
+	    return month + " " + day + ", " + year;
+	  },
 	  render: function render() {
+	    console.log("TIME STATE ===>", this.state);
 	    var timeStyle = {
-	      color: "black",
-	      width: "100px",
-	      height: "100px",
+	      color: "white",
+	      fontSize: "72px",
 	      fontFamily: "Noto Sans",
-	      textAlign: "center"
+	      fontWeight: "bold"
 	    };
+	    var dateStyle = {
+	      color: "white",
+	      fontSize: "24px"
+	    };
+	    var date = void 0,
+	        time = void 0,
+	        hour = void 0,
+	        datetimeStyle = void 0;
+	    if (this.state.time) {
+	      var dateTime = this.state.time.split(" ");
+	      date = dateTime[0];
+	      date = this.parseDate(date);
+	      time = dateTime[1].split(":");
+	      hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12;
+	      time = hour + ":" + time[1];
+	      var top = this.state.coords[1] * 100 + "%";
+	      var left = this.state.coords[0] * 100 + "%";
+	      datetimeStyle = {
+	        display: "block",
+	        position: "absolute",
+	        top: top,
+	        left: left
+	      };
+	    } else {
+	      date = React.createElement('div', null);
+	      time = React.createElement('div', null);
+	    }
+	
 	    return React.createElement(
 	      'div',
-	      null,
-	      this.state.time
+	      { style: datetimeStyle },
+	      React.createElement(
+	        'div',
+	        { style: dateStyle },
+	        date
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: timeStyle },
+	        time
+	      )
 	    );
 	  }
 	});
@@ -25487,12 +25536,12 @@
 	  displayName: 'ToDo',
 	
 	  getInitialState: function getInitialState() {
-	    return { todos: null };
+	    return { todos: null, coords: null };
 	  },
 	  fetchTodos: function fetchTodos() {
 	    var that = this;
 	    axios.get("https://kagami-b6130.firebaseio.com/toDos.json").then(function (todos) {
-	      that.setState({ todos: todos.data });
+	      that.setState({ todos: todos.data, coords: [todos.data.x, todos.data.y] });
 	    });
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -25506,12 +25555,38 @@
 	  },
 	  displayTodos: function displayTodos() {
 	    var display = [];
+	    var imgSrc = void 0;
 	    var todos = this.state.todos.lastest;
+	    var containerStyle = {
+	      lineHeight: "25px",
+	      marginBottom: "5px"
+	    };
+	    var todoStyle = {
+	      verticalAlign: "bottom",
+	      fontSize: "20px",
+	      margin: "auto"
+	    };
+	    var checkboxStyle = {
+	      width: "25px",
+	      height: "25px",
+	      marginRight: "5px",
+	      verticalAlign: "top"
+	    };
 	    for (var x = 1; x < todos.length; x++) {
+	      if (todos[x].completed) {
+	        imgSrc = "./frontend/todo/checkbox.png";
+	      } else {
+	        imgSrc = "./frontend/todo/uncheckbox.png";
+	      }
 	      display.push(React.createElement(
 	        'div',
-	        { key: x },
-	        todos[x].title
+	        { style: containerStyle, key: x },
+	        React.createElement('img', { style: checkboxStyle, src: imgSrc }),
+	        React.createElement(
+	          'span',
+	          { style: todoStyle },
+	          todos[x].title
+	        )
 	      ));
 	    }
 	    return display;
@@ -25564,7 +25639,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: red;\n  color: #333;\n  font-family: Noto Sans;\n  text-align: center;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n  width: 25%;\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n  position: absolute;\n  width: 25%;\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
 	
 	// exports
 
@@ -25584,7 +25659,7 @@
 		// return the list of modules as css string
 		list.toString = function toString() {
 			return this.map(function (item) {
-				const content = cssWithMappingToString(item);
+				var content = cssWithMappingToString(item);
 				if(item[2]) {
 					return "@media " + item[2] + "{" + content + "}";
 				} else {
@@ -25650,8 +25725,6 @@
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
-	  //Example (Extra space between slashes added to solve Safari bug. Exclude space in production):
-	  //     / /# sourceMappingURL=foo.js.map           /*# sourceMappingURL=foo.js.map */
 	  /(?:\/\/[@#][ \t]+sourceMappingURL=([^\s'"]+?)[ \t]*$)|(?:\/\*[@#][ \t]+sourceMappingURL=([^\*]+?)[ \t]*(?:\*\/){1}[ \t]*$)/mg
 	
 	function decodeBase64(base64) {

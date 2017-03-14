@@ -4,12 +4,12 @@ import * as firebase from 'firebase'
 
 var ToDo = React.createClass({
   getInitialState: function() {
-    return({todos: null})
+    return({todos: null, coords: null})
   },
   fetchTodos: function() {
     var that = this
     axios.get("https://kagami-b6130.firebaseio.com/toDos.json").then(function(todos) {
-      that.setState({todos: todos.data})
+      that.setState({todos: todos.data, coords: [todos.data.x, todos.data.y]})
     })
   },
   componentDidMount: function() {
@@ -21,9 +21,30 @@ var ToDo = React.createClass({
   },
   displayTodos: function() {
     let display = [];
+    let imgSrc
     const todos = this.state.todos.lastest;
+    let containerStyle = {
+      lineHeight: "25px",
+      marginBottom: "5px"
+    }
+    let todoStyle = {
+      verticalAlign: "bottom",
+      fontSize: "20px",
+      margin: "auto"
+    }
+    let checkboxStyle = {
+      width: "25px",
+      height: "25px",
+      marginRight: "5px",
+      verticalAlign: "top"
+    }
     for(let x = 1; x < todos.length; x++) {
-      display.push(<div key={x}>{todos[x].title}</div>)
+      if (todos[x].completed) {
+        imgSrc = "./frontend/todo/checkbox.png"
+      } else {
+        imgSrc = "./frontend/todo/uncheckbox.png"
+      }
+      display.push(<div style={containerStyle} key={x}><img style={checkboxStyle} src={imgSrc}/><span style={todoStyle}>{todos[x].title}</span></div>)
     }
     return display;
   },

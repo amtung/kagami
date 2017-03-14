@@ -3,15 +3,15 @@
 }
 
 body {
-  background: red;
+  background: black;
   color: #333;
   font-family: Noto Sans;
-  text-align: center;
   margin: 0;
 }
 
 /*weather*/
 .weather {
+  position: absolute;
   width: 25%;
 }
 .mainWeather{

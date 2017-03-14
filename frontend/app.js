@@ -4,7 +4,7 @@ var axios = require('axios')
 import * as firebase from 'firebase'
 var Time = require('./time.jsx')
 var Weather = require('./weather/weather.jsx')
-var ToDo = require('./todo.jsx');
+var ToDo = require('./todo/todo.jsx');
 
 require('../style.css')
 
@@ -35,7 +35,7 @@ var App = React.createClass({
       // console.log("weather", snap.val())
       this.setState({isWeatherVisible: snap.val()})
     })
-    
+
     // time listener
     const time = firebase.database().ref().child('time');
     const onMirrorTime = time.child('onMirror')
@@ -48,17 +48,17 @@ var App = React.createClass({
     const toDo = firebase.database().ref().child('toDos');
     const onMirrorToDo = toDo.child('onMirror')
     onMirrorToDo.on('value', snap => {
-      // console.log("todos", snap.val())
+      console.log("todos", snap.val())
       this.setState({isToDoVisible: snap.val()})
     })
   },
   render: function() {
     var appStyle = {
-      color: "black",
+      color: "white",
+      position: "relative",
       width: "100%",
-      height: "100%",
-      fontFamily: "Noto Sans",
-      textAlign: "center"
+      height: "100vh",
+      fontFamily: "Noto Sans"
     };
     return(
       <div style={appStyle}>
