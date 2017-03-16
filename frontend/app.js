@@ -6,7 +6,8 @@ var Time = require('./time.jsx')
 var Weather = require('./weather/weather.jsx')
 var Forecast = require('./weather/forecast.jsx')
 var ToDo = require('./todo/todo.jsx');
-console.log(Forecast)
+var Quote = require('./quote.jsx');
+
 require('../style.css')
 
 var config = {
@@ -27,6 +28,8 @@ var App = React.createClass({
       isTimeVisible: false,
       isWeatherVisible: false,
       isForecastVisible: false,
+      isQuoteVisible: false,
+      isToDoVisible: false,
       location: 11362})
   },
   componentDidMount: function() {
@@ -58,6 +61,12 @@ var App = React.createClass({
     onMirrorToDo.on('value', snap => {
       this.setState({isToDoVisible: snap.val()})
     })
+
+    const quote = firebase.database().ref().child('quote');
+    const onMirrorQuote = quote.child('onMirror')
+    onMirrorQuote.on('value', snap => {
+      this.setState({isQuoteVisible: snap.val()})
+    })
   },
   render: function() {
     var appStyle = {
@@ -73,6 +82,7 @@ var App = React.createClass({
         {this.state.isForecastVisible && <Forecast />}
         {this.state.isTimeVisible && <Time />}
         {this.state.isToDoVisible && <ToDo />}
+        {this.state.isQuoteVisible && <Quote />}
       </div>
     )
   }

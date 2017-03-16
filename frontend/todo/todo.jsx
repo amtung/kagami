@@ -4,7 +4,7 @@ import * as firebase from 'firebase'
 
 var ToDo = React.createClass({
   getInitialState: function() {
-    return({todos: null, coords: null})
+    return({todos: null, coords: [0, 0]})
   },
   fetchTodos: function() {
     var that = this
@@ -39,19 +39,29 @@ var ToDo = React.createClass({
       verticalAlign: "top"
     }
     for(let x = 1; x < todos.length; x++) {
-      if (todos[x].completed) {
-        imgSrc = "./frontend/todo/checkbox.png"
-      } else {
-        imgSrc = "./frontend/todo/uncheckbox.png"
+      if (todos[x].title) {
+        if (todos[x].completed) {
+          imgSrc = "./frontend/todo/checkbox.png"
+        } else {
+          imgSrc = "./frontend/todo/uncheckbox.png"
+        }
+        display.push(<div style={containerStyle} key={x}><img style={checkboxStyle} src={imgSrc}/><span style={todoStyle}>{todos[x].title}</span></div>)
       }
-      display.push(<div style={containerStyle} key={x}><img style={checkboxStyle} src={imgSrc}/><span style={todoStyle}>{todos[x].title}</span></div>)
     }
     return display;
   },
   render: function() {
+    let top = (this.state.coords[1] * 100) + "%"
+    let left = (this.state.coords[0] * 100) + "%"
+    let alltodoStyle = {
+      display: "block",
+      position: "absolute",
+      top: top,
+      left: left
+    }
     const { todos } = this.state
     return(
-      <div>
+      <div style={alltodoStyle}>
         {todos && this.displayTodos()}
       </div>
     )

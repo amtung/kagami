@@ -58,10 +58,11 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
-	var Forecast = __webpack_require__(259);
-	var ToDo = __webpack_require__(260);
-	console.log(Forecast);
-	__webpack_require__(261);
+	var Forecast = __webpack_require__(271);
+	var ToDo = __webpack_require__(259);
+	var Quote = __webpack_require__(270);
+	
+	__webpack_require__(260);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -131,7 +132,8 @@
 	      this.state.isWeatherVisible && React.createElement(Weather, null),
 	      this.state.isForecastVisible && React.createElement(Forecast, null),
 	      this.state.isTimeVisible && React.createElement(Time, null),
-	      this.state.isToDoVisible && React.createElement(ToDo, null)
+	      this.state.isToDoVisible && React.createElement(ToDo, null),
+	      this.state.isQuoteVisible && React.createElement(Quote, null)
 	    );
 	  }
 	});
@@ -25583,121 +25585,6 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var React = __webpack_require__(7);
-	var axios = __webpack_require__(184);
-	
-	var DisplayWeatherInfo = __webpack_require__(211);
-	
-	var Forecast = React.createClass({
-	  displayName: 'Forecast',
-	  getInitialState: function getInitialState() {
-	    return {
-	      location: null,
-	      apiWeather5Day: null,
-	      isFiveDayForecast: false,
-	      fahrenheit: true,
-	      x: 0,
-	      y: 0
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-	
-	    console.log("data");
-	    // get all weather information from firebase once
-	    axios.get("https://kagami-b6130.firebaseio.com/forecast.json").then(function (_ref) {
-	      var _ref$data = _ref.data,
-	          location = _ref$data.location,
-	          fahrenheit = _ref$data.fahrenheit,
-	          x = _ref$data.x,
-	          y = _ref$data.y;
-	
-	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y });
-	    })
-	    // get forecast infomation based on user's zipcode
-	    .then(function () {
-	      return _this.fetch5Day();
-	    });
-	
-	    // listen for all changes in the forecast object
-	    var forecast = firebase.database().ref().child('forecast');
-	    forecast.on('child_changed', function (forecast) {
-	      // when location changes get send out api to receive forecast infomation
-	      if (forecast.key !== "onMirror") {
-	        _this.setState(_defineProperty({}, forecast.key, forecast.val()));
-	      }
-	      if (forecast.key === "location" || forecast.key === "fahrenheit") {
-	        _this.fetch5Day();
-	      }
-	    });
-	  },
-	  fetch5Day: function fetch5Day() {
-	    var _this2 = this;
-	
-	    var _state = this.state,
-	        location = _state.location,
-	        fahrenheit = _state.fahrenheit;
-	    // imperial == fahrenheit, metric ==  Celsius
-	
-	    var temp = fahrenheit ? 'imperial' : 'metric';
-	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref2) {
-	      var data = _ref2.data;
-	
-	      _this2.setState({ apiWeather5Day: data });
-	    });
-	  },
-	  showFiveDayForcast: function showFiveDayForcast() {
-	    var list = this.state.apiWeather5Day.list;
-	
-	    return list.splice(0, 5).map(function (day, indx) {
-	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
-	    });
-	  },
-	  render: function render() {
-	    var _state2 = this.state,
-	        apiWeather = _state2.apiWeather,
-	        apiWeather5Day = _state2.apiWeather5Day,
-	        isFiveDayForecast = _state2.isFiveDayForecast;
-	
-	    var fiveDayStyle = {
-	      position: 'absolute',
-	      top: 200,
-	      left: 300,
-	      width: '50%',
-	      display: 'flex'
-	    };
-	    return React.createElement(
-	      'div',
-	      null,
-	      apiWeather5Day ? React.createElement(
-	        'div',
-	        { style: fiveDayStyle },
-	        this.showFiveDayForcast()
-	      ) : React.createElement(
-	        'div',
-	        null,
-	        'Loading'
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Forecast;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _firebase = __webpack_require__(1);
-	
-	var firebase = _interopRequireWildcard(_firebase);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
 	var React = __webpack_require__(7);
 	var axios = __webpack_require__(184);
 	
@@ -25775,16 +25662,16 @@
 	module.exports = ToDo;
 
 /***/ },
-/* 261 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(262);
+	var content = __webpack_require__(261);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(270)(content, {});
+	var update = __webpack_require__(269)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25801,10 +25688,10 @@
 	}
 
 /***/ },
-/* 262 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(263)();
+	exports = module.exports = __webpack_require__(262)();
 	// imports
 	
 	
@@ -25815,7 +25702,7 @@
 
 
 /***/ },
-/* 263 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25829,7 +25716,7 @@
 		// return the list of modules as css string
 		list.toString = function toString() {
 			return this.map(function (item) {
-				const content = cssWithMappingToString(item);
+				var content = cssWithMappingToString(item);
 				if(item[2]) {
 					return "@media " + item[2] + "{" + content + "}";
 				} else {
@@ -25873,7 +25760,7 @@
 		if (!cssMapping) {
 			return content;
 		}
-		var convertSourceMap = __webpack_require__(264);
+		var convertSourceMap = __webpack_require__(263);
 		var sourceMapping = convertSourceMap.fromObject(cssMapping).toComment({multiline: true});
 		var sourceURLs = cssMapping.sources.map(function (source) {
 			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
@@ -25883,7 +25770,7 @@
 
 
 /***/ },
-/* 264 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/* eslint-disable */
@@ -25891,12 +25778,10 @@
 	// XXXXX: This file should not exist. Working around a core level bug
 	// that prevents using fs at loaders.
 	//var fs = require('fs'); // XXX
-	var path = __webpack_require__(269);
+	var path = __webpack_require__(268);
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
-	  //Example (Extra space between slashes added to solve Safari bug. Exclude space in production):
-	  //     / /# sourceMappingURL=foo.js.map           /*# sourceMappingURL=foo.js.map */
 	  /(?:\/\/[@#][ \t]+sourceMappingURL=([^\s'"]+?)[ \t]*$)|(?:\/\*[@#][ \t]+sourceMappingURL=([^\*]+?)[ \t]*(?:\*\/){1}[ \t]*$)/mg
 	
 	function decodeBase64(base64) {
@@ -26030,10 +25915,10 @@
 	  }
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(265).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264).Buffer))
 
 /***/ },
-/* 265 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -26046,9 +25931,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(266)
-	var ieee754 = __webpack_require__(267)
-	var isArray = __webpack_require__(268)
+	var base64 = __webpack_require__(265)
+	var ieee754 = __webpack_require__(266)
+	var isArray = __webpack_require__(267)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -27829,7 +27714,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 266 */
+/* 265 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -27949,7 +27834,7 @@
 
 
 /***/ },
-/* 267 */
+/* 266 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -28039,7 +27924,7 @@
 
 
 /***/ },
-/* 268 */
+/* 267 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -28050,7 +27935,7 @@
 
 
 /***/ },
-/* 269 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -28281,7 +28166,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 270 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28531,6 +28416,208 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
+	
+	var Time = React.createClass({
+	  displayName: 'Time',
+	
+	  getInitialState: function getInitialState() {
+	    return { author: null, fullQuote: null, coords: [0, 0] };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.fetchQuote();
+	    var quote = firebase.database().ref().child('quote');
+	    quote.on('child_changed', function (quote) {
+	      _this.fetchQuote();
+	    });
+	  },
+	  fetchQuote: function fetchQuote() {
+	    var that = this;
+	    axios.get("https://kagami-b6130.firebaseio.com/quote.json").then(function (quote) {
+	      that.setState({
+	        author: quote.data.author,
+	        fullQuote: quote.data.fullQuote,
+	        coords: [quote.data.x, quote.data.y]
+	      });
+	    });
+	  },
+	  render: function render() {
+	    var containerStyle = {
+	      display: "block",
+	      position: "absolute",
+	      top: this.state.coords[1] * 100 + "%",
+	      left: this.state.coords[0] * 100 + "%"
+	    };
+	    var quoteStyle = {
+	      color: "white",
+	      fontSize: "24px",
+	      fontFamily: "Noto Sans",
+	      fontStyle: "italic"
+	    };
+	    var authorStyle = {
+	      color: "white",
+	      fontSize: "24px"
+	    };
+	
+	    if (this.state.author && this.state.fullQuote) {
+	      return React.createElement(
+	        'div',
+	        { style: containerStyle },
+	        React.createElement(
+	          'div',
+	          { style: quoteStyle },
+	          React.createElement(
+	            'q',
+	            null,
+	            this.state.fullQuote
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { style: authorStyle },
+	          '-',
+	          this.state.author
+	        )
+	      );
+	    } else {
+	      return React.createElement('div', null);
+	    }
+	  }
+	});
+	
+	module.exports = Time;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
+	var DisplayWeatherInfo = __webpack_require__(211);
+	
+	var Forecast = React.createClass({
+	  displayName: 'Forecast',
+	  getInitialState: function getInitialState() {
+	    return {
+	      location: null,
+	      apiWeather5Day: null,
+	      isFiveDayForecast: false,
+	      fahrenheit: true,
+	      x: 0,
+	      y: 0
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    console.log("data");
+	    // get all weather information from firebase once
+	    axios.get("https://kagami-b6130.firebaseio.com/forecast.json").then(function (_ref) {
+	      var _ref$data = _ref.data,
+	          location = _ref$data.location,
+	          fahrenheit = _ref$data.fahrenheit,
+	          x = _ref$data.x,
+	          y = _ref$data.y;
+	
+	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y });
+	    })
+	    // get forecast infomation based on user's zipcode
+	    .then(function () {
+	      return _this.fetch5Day();
+	    });
+	
+	    // listen for all changes in the forecast object
+	    var forecast = firebase.database().ref().child('forecast');
+	    forecast.on('child_changed', function (forecast) {
+	      // when location changes get send out api to receive forecast infomation
+	      if (forecast.key !== "onMirror") {
+	        _this.setState(_defineProperty({}, forecast.key, forecast.val()));
+	      }
+	      if (forecast.key === "location" || forecast.key === "fahrenheit") {
+	        _this.fetch5Day();
+	      }
+	    });
+	  },
+	  fetch5Day: function fetch5Day() {
+	    var _this2 = this;
+	
+	    var _state = this.state,
+	        location = _state.location,
+	        fahrenheit = _state.fahrenheit;
+	    // imperial == fahrenheit, metric ==  Celsius
+	
+	    var temp = fahrenheit ? 'imperial' : 'metric';
+	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref2) {
+	      var data = _ref2.data;
+	
+	      _this2.setState({ apiWeather5Day: data });
+	    });
+	  },
+	  showFiveDayForcast: function showFiveDayForcast() {
+	    var list = this.state.apiWeather5Day.list;
+	
+	    return list.splice(0, 5).map(function (day, indx) {
+	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
+	    });
+	  },
+	  render: function render() {
+	    var _state2 = this.state,
+	        apiWeather = _state2.apiWeather,
+	        apiWeather5Day = _state2.apiWeather5Day,
+	        isFiveDayForecast = _state2.isFiveDayForecast;
+	
+	    var fiveDayStyle = {
+	      position: 'absolute',
+	      top: 200,
+	      left: 300,
+	      width: '50%',
+	      display: 'flex'
+	    };
+	    return React.createElement(
+	      'div',
+	      null,
+	      apiWeather5Day ? React.createElement(
+	        'div',
+	        { style: fiveDayStyle },
+	        this.showFiveDayForcast()
+	      ) : React.createElement(
+	        'div',
+	        null,
+	        'Loading'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Forecast;
 
 /***/ }
 /******/ ]);
