@@ -8,8 +8,6 @@ var Weather = React.createClass({
     return({
       location: null,
       apiWeather: null,
-      apiWeather5Day: null,
-      isFiveDayForecast: false, 
       fahrenheit: true,
       x: 0,
       y: 0,
@@ -18,15 +16,11 @@ var Weather = React.createClass({
   componentDidMount() {
     // get all weather information from firebase once
     axios.get("https://kagami-b6130.firebaseio.com/weather.json")
-    .then(({ data : { location, fahrenheit, x, y, isFiveDayForecast}}) => {
-      this.setState({location, fahrenheit, x, y, isFiveDayForecast})
-      return isFiveDayForecast
+    .then(({ data : { location, fahrenheit, x, y}}) => {
+      this.setState({location, fahrenheit, x, y})
     })
     // get weather infomation based on user's zipcode
-    .then((isFiveDay) => {
-      this.fetchWeatherInfo()
-      if(isFiveDay) this.fetch5Day();
-    })
+    .then((isFiveDay) => this.fetchWeatherInfo())
 
     // listen for all changes in the weather object
     const weather = firebase.database().ref().child('weather');
@@ -69,7 +63,6 @@ var Weather = React.createClass({
     return list.splice(0,4).map((day, indx) => <DisplayWeatherInfo key={indx} weather={day}/>)
   },
   render() {
-    const {apiWeather, apiWeather5Day, isFiveDayForecast} = this.state;
     const fiveDayStyle = {
       position: 'absolute',
       top: 200, 
@@ -82,9 +75,6 @@ var Weather = React.createClass({
         {this.state.apiWeather
           ? <DisplayWeatherInfo weather={this.state.apiWeather}/>
           : <div>loading</div>}
-        {isFiveDayForecast && apiWeather5Day &&
-          <div style={fiveDayStyle}>{this.showFiveDayForcast()}</div>
-        }
       </div>
     )
   }

@@ -58,9 +58,10 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
-	var ToDo = __webpack_require__(259);
-	
-	__webpack_require__(260);
+	var Forecast = __webpack_require__(259);
+	var ToDo = __webpack_require__(260);
+	console.log(Forecast);
+	__webpack_require__(261);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -81,16 +82,25 @@
 	      height: window.innerHeight,
 	      isTimeVisible: false,
 	      isWeatherVisible: false,
+	      isForecastVisible: false,
 	      location: 11362 };
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
 	    // weather listener
+	    console.log("con");
 	    var weather = firebase.database().ref().child('weather');
 	    var onMirrorWeather = weather.child('onMirror');
 	    onMirrorWeather.on('value', function (snap) {
 	      _this.setState({ isWeatherVisible: snap.val() });
+	    });
+	    // forcast listener
+	    var forecast = firebase.database().ref().child('forecast');
+	    var onMirrorForecast = forecast.child('onMirror');
+	    onMirrorForecast.on('value', function (snap) {
+	      console.log(snap.val());
+	      _this.setState({ isForecastVisible: snap.val() });
 	    });
 	
 	    // time listener
@@ -119,6 +129,7 @@
 	      'div',
 	      { style: appStyle },
 	      this.state.isWeatherVisible && React.createElement(Weather, null),
+	      this.state.isForecastVisible && React.createElement(Forecast, null),
 	      this.state.isTimeVisible && React.createElement(Time, null),
 	      this.state.isToDoVisible && React.createElement(ToDo, null)
 	    );
@@ -23885,8 +23896,6 @@
 	    return {
 	      location: null,
 	      apiWeather: null,
-	      apiWeather5Day: null,
-	      isFiveDayForecast: false,
 	      fahrenheit: true,
 	      x: 0,
 	      y: 0
@@ -23901,16 +23910,13 @@
 	          location = _ref$data.location,
 	          fahrenheit = _ref$data.fahrenheit,
 	          x = _ref$data.x,
-	          y = _ref$data.y,
-	          isFiveDayForecast = _ref$data.isFiveDayForecast;
+	          y = _ref$data.y;
 	
-	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y, isFiveDayForecast: isFiveDayForecast });
-	      return isFiveDayForecast;
+	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y });
 	    })
 	    // get weather infomation based on user's zipcode
 	    .then(function (isFiveDay) {
-	      _this.fetchWeatherInfo();
-	      if (isFiveDay) _this.fetch5Day();
+	      return _this.fetchWeatherInfo();
 	    });
 	
 	    // listen for all changes in the weather object
@@ -23958,7 +23964,6 @@
 	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref3) {
 	      var data = _ref3.data;
 	
-	      console.log("fetch5Day", data);
 	      _this3.setState({ apiWeather5Day: data });
 	    });
 	  },
@@ -23970,11 +23975,6 @@
 	    });
 	  },
 	  render: function render() {
-	    var _state3 = this.state,
-	        apiWeather = _state3.apiWeather,
-	        apiWeather5Day = _state3.apiWeather5Day,
-	        isFiveDayForecast = _state3.isFiveDayForecast;
-	
 	    var fiveDayStyle = {
 	      position: 'absolute',
 	      top: 200,
@@ -23989,11 +23989,6 @@
 	        'div',
 	        null,
 	        'loading'
-	      ),
-	      isFiveDayForecast && apiWeather5Day && React.createElement(
-	        'div',
-	        { style: fiveDayStyle },
-	        this.showFiveDayForcast()
 	      )
 	    );
 	  }
@@ -24017,8 +24012,6 @@
 	  var icon = weatherIcons[weather.weather[0].description];
 	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
 	  var Special = icon ? icon : weatherIcons['clear sky'];
-	  console.log(Special);
-	  console.log(weather.weather[0].description);
 	  return React.createElement(
 	    'div',
 	    { className: 'weather' },
@@ -25590,6 +25583,121 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
+	var DisplayWeatherInfo = __webpack_require__(211);
+	
+	var Forecast = React.createClass({
+	  displayName: 'Forecast',
+	  getInitialState: function getInitialState() {
+	    return {
+	      location: null,
+	      apiWeather5Day: null,
+	      isFiveDayForecast: false,
+	      fahrenheit: true,
+	      x: 0,
+	      y: 0
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    console.log("data");
+	    // get all weather information from firebase once
+	    axios.get("https://kagami-b6130.firebaseio.com/forecast.json").then(function (_ref) {
+	      var _ref$data = _ref.data,
+	          location = _ref$data.location,
+	          fahrenheit = _ref$data.fahrenheit,
+	          x = _ref$data.x,
+	          y = _ref$data.y;
+	
+	      _this.setState({ location: location, fahrenheit: fahrenheit, x: x, y: y });
+	    })
+	    // get forecast infomation based on user's zipcode
+	    .then(function () {
+	      return _this.fetch5Day();
+	    });
+	
+	    // listen for all changes in the forecast object
+	    var forecast = firebase.database().ref().child('forecast');
+	    forecast.on('child_changed', function (forecast) {
+	      // when location changes get send out api to receive forecast infomation
+	      if (forecast.key !== "onMirror") {
+	        _this.setState(_defineProperty({}, forecast.key, forecast.val()));
+	      }
+	      if (forecast.key === "location" || forecast.key === "fahrenheit") {
+	        _this.fetch5Day();
+	      }
+	    });
+	  },
+	  fetch5Day: function fetch5Day() {
+	    var _this2 = this;
+	
+	    var _state = this.state,
+	        location = _state.location,
+	        fahrenheit = _state.fahrenheit;
+	    // imperial == fahrenheit, metric ==  Celsius
+	
+	    var temp = fahrenheit ? 'imperial' : 'metric';
+	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref2) {
+	      var data = _ref2.data;
+	
+	      _this2.setState({ apiWeather5Day: data });
+	    });
+	  },
+	  showFiveDayForcast: function showFiveDayForcast() {
+	    var list = this.state.apiWeather5Day.list;
+	
+	    return list.splice(0, 5).map(function (day, indx) {
+	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
+	    });
+	  },
+	  render: function render() {
+	    var _state2 = this.state,
+	        apiWeather = _state2.apiWeather,
+	        apiWeather5Day = _state2.apiWeather5Day,
+	        isFiveDayForecast = _state2.isFiveDayForecast;
+	
+	    var fiveDayStyle = {
+	      position: 'absolute',
+	      top: 200,
+	      left: 300,
+	      width: '50%',
+	      display: 'flex'
+	    };
+	    return React.createElement(
+	      'div',
+	      null,
+	      apiWeather5Day ? React.createElement(
+	        'div',
+	        { style: fiveDayStyle },
+	        this.showFiveDayForcast()
+	      ) : React.createElement(
+	        'div',
+	        null,
+	        'Loading'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Forecast;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	var React = __webpack_require__(7);
 	var axios = __webpack_require__(184);
 	
@@ -25667,16 +25775,16 @@
 	module.exports = ToDo;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(261);
+	var content = __webpack_require__(262);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(269)(content, {});
+	var update = __webpack_require__(270)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25693,10 +25801,10 @@
 	}
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(262)();
+	exports = module.exports = __webpack_require__(263)();
 	// imports
 	
 	
@@ -25707,7 +25815,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25765,7 +25873,7 @@
 		if (!cssMapping) {
 			return content;
 		}
-		var convertSourceMap = __webpack_require__(263);
+		var convertSourceMap = __webpack_require__(264);
 		var sourceMapping = convertSourceMap.fromObject(cssMapping).toComment({multiline: true});
 		var sourceURLs = cssMapping.sources.map(function (source) {
 			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
@@ -25775,7 +25883,7 @@
 
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/* eslint-disable */
@@ -25783,7 +25891,7 @@
 	// XXXXX: This file should not exist. Working around a core level bug
 	// that prevents using fs at loaders.
 	//var fs = require('fs'); // XXX
-	var path = __webpack_require__(268);
+	var path = __webpack_require__(269);
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
@@ -25922,10 +26030,10 @@
 	  }
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(265).Buffer))
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -25938,9 +26046,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(265)
-	var ieee754 = __webpack_require__(266)
-	var isArray = __webpack_require__(267)
+	var base64 = __webpack_require__(266)
+	var ieee754 = __webpack_require__(267)
+	var isArray = __webpack_require__(268)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -27721,7 +27829,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -27841,7 +27949,7 @@
 
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -27931,7 +28039,7 @@
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -27942,7 +28050,7 @@
 
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -28173,7 +28281,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
