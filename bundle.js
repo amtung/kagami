@@ -58,9 +58,11 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
-	var Forecast = __webpack_require__(258);
-	var ToDo = __webpack_require__(259);
-	__webpack_require__(260);
+	var Forecast = __webpack_require__(259);
+	var ToDo = __webpack_require__(261);
+	var Quote = __webpack_require__(262);
+	
+	__webpack_require__(263);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -82,6 +84,7 @@
 	      isTimeVisible: false,
 	      isWeatherVisible: false,
 	      isForecastVisible: false,
+	      isQuoteVisible: false,
 	      isToDoVisible: false,
 	      location: 11362 };
 	  },
@@ -114,6 +117,12 @@
 	    onMirrorToDo.on('value', function (snap) {
 	      _this.setState({ isToDoVisible: snap.val() });
 	    });
+	
+	    var quote = firebase.database().ref().child('quote');
+	    var onMirrorQuote = quote.child('onMirror');
+	    onMirrorQuote.on('value', function (snap) {
+	      _this.setState({ isQuoteVisible: snap.val() });
+	    });
 	  },
 	  render: function render() {
 	    var appStyle = {
@@ -129,7 +138,8 @@
 	      this.state.isWeatherVisible && React.createElement(Weather, null),
 	      this.state.isForecastVisible && React.createElement(Forecast, null),
 	      this.state.isTimeVisible && React.createElement(Time, null),
-	      this.state.isToDoVisible && React.createElement(ToDo, null)
+	      this.state.isToDoVisible && React.createElement(ToDo, null),
+	      this.state.isQuoteVisible && React.createElement(Quote, null)
 	    );
 	  }
 	});
@@ -24043,11 +24053,11 @@
 	  'broken clouds': __webpack_require__(253),
 	  'shower rain': __webpack_require__(254),
 	  'rain': __webpack_require__(255),
-	  'thunderstorm': __webpack_require__(270),
-	  'light snow': __webpack_require__(256),
-	  'snow': __webpack_require__(256),
-	  'mist': __webpack_require__(257),
-	  'overcast clouds': __webpack_require__(257)
+	  'thunderstorm': __webpack_require__(256),
+	  'light snow': __webpack_require__(257),
+	  'snow': __webpack_require__(257),
+	  'mist': __webpack_require__(258),
+	  'overcast clouds': __webpack_require__(258)
 	};
 
 /***/ },
@@ -25431,6 +25441,40 @@
 	
 	module.exports = React.createClass({
 	
+	    displayName: "CloudThunderstormInline",
+	
+	    getDefaultProps: function getDefaultProps() {
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "44px", "viewBox": "0 0 44 44", "enableBackground": "new 0 0 44 44" };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        helpers.applyXmlAttributes(this);
+	    },
+	    render: function render() {
+	        var props = this.props;
+	        var children = props.children;
+	
+	        return React.createElement(
+	            'svg',
+	            this.props,
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M32,32c-0.3,0-0.6,0-1.1,0l3.6-4.399C37.7,26.5,40,23.5,40,20c0-4.399-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.301\r C26.5,8,21.7,4,16,4C9.4,4,4,9.4,4,16c0,5.4,3.6,10,8.6,11.5l-1.3,3.801C4.8,29.301,0,23.2,0,16C0,7.2,7.2,0,16,0\r c6,0,11.2,3.301,14,8.2c0.7-0.1,1.3-0.2,2-0.2c6.6,0,12,5.4,12,12C44,26.7,38.6,32,32,32z M20,18h10l-6,10h7L18,44l3.6-12H15L20,18z\r ' }),
+	            React.Children.map(children, function (c) {
+	                return c;
+	            })
+	        );
+	    }
+	});
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(7);
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
+	
+	module.exports = React.createClass({
+	
 	    displayName: "CloudSnowInline",
 	
 	    getDefaultProps: function getDefaultProps() {
@@ -25455,7 +25499,7 @@
 	});
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25489,7 +25533,7 @@
 	});
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25505,7 +25549,7 @@
 	var React = __webpack_require__(7);
 	var axios = __webpack_require__(184);
 	
-	var DisplayForecastInfo = __webpack_require__(271);
+	var DisplayForecastInfo = __webpack_require__(260);
 	
 	var Forecast = React.createClass({
 	  displayName: 'Forecast',
@@ -25605,7 +25649,63 @@
 	module.exports = Forecast;
 
 /***/ },
-/* 259 */
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(7);
+	var weatherIcons = __webpack_require__(212).default;
+	
+	var DisplayForecastInfo = function DisplayForecastInfo(_ref) {
+	  var weather = _ref.weather;
+	
+	  var icon = weatherIcons[weather.weather[0].description];
+	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
+	  var Special = icon ? icon : weatherIcons['clear sky'];
+	  return React.createElement(
+	    'div',
+	    { style: { display: 'flex', flexDirection: 'column' } },
+	    React.createElement(Special, { className: 'forecast_icon' }),
+	    React.createElement(
+	      'div',
+	      { style: { display: 'flex', flexDirection: 'column' } },
+	      React.createElement(
+	        'div',
+	        { style: { display: 'flex', flexDirection: 'column' } },
+	        React.createElement(
+	          'span',
+	          null,
+	          'High'
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          Math.round(weather.temp.max)
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: { display: 'flex', flexDirection: 'column' } },
+	        React.createElement(
+	          'span',
+	          null,
+	          'Low'
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          Math.round(weather.temp.min)
+	        )
+	      )
+	    )
+	  );
+	};
+	
+	module.exports = DisplayForecastInfo;
+
+/***/ },
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25624,7 +25724,7 @@
 	  displayName: 'ToDo',
 	
 	  getInitialState: function getInitialState() {
-	    return { todos: null, coords: null };
+	    return { todos: null, coords: [0, 0] };
 	  },
 	  fetchTodos: function fetchTodos() {
 	    var that = this;
@@ -25661,30 +25761,40 @@
 	      verticalAlign: "top"
 	    };
 	    for (var x = 1; x < todos.length; x++) {
-	      if (todos[x].completed) {
-	        imgSrc = "./frontend/todo/checkbox.png";
-	      } else {
-	        imgSrc = "./frontend/todo/uncheckbox.png";
+	      if (todos[x].title) {
+	        if (todos[x].completed) {
+	          imgSrc = "./frontend/todo/checkbox.png";
+	        } else {
+	          imgSrc = "./frontend/todo/uncheckbox.png";
+	        }
+	        display.push(React.createElement(
+	          'div',
+	          { style: containerStyle, key: x },
+	          React.createElement('img', { style: checkboxStyle, src: imgSrc }),
+	          React.createElement(
+	            'span',
+	            { style: todoStyle },
+	            todos[x].title
+	          )
+	        ));
 	      }
-	      display.push(React.createElement(
-	        'div',
-	        { style: containerStyle, key: x },
-	        React.createElement('img', { style: checkboxStyle, src: imgSrc }),
-	        React.createElement(
-	          'span',
-	          { style: todoStyle },
-	          todos[x].title
-	        )
-	      ));
 	    }
 	    return display;
 	  },
 	  render: function render() {
+	    var top = this.state.coords[1] * 100 + "%";
+	    var left = this.state.coords[0] * 100 + "%";
+	    var alltodoStyle = {
+	      display: "block",
+	      position: "absolute",
+	      top: top,
+	      left: left
+	    };
 	    var todos = this.state.todos;
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { style: alltodoStyle },
 	      todos && this.displayTodos()
 	    );
 	  }
@@ -25693,16 +25803,103 @@
 	module.exports = ToDo;
 
 /***/ },
-/* 260 */
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _firebase = __webpack_require__(1);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var React = __webpack_require__(7);
+	var axios = __webpack_require__(184);
+	
+	
+	var Time = React.createClass({
+	  displayName: 'Time',
+	
+	  getInitialState: function getInitialState() {
+	    return { author: null, fullQuote: null, coords: [0, 0] };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.fetchQuote();
+	    var quote = firebase.database().ref().child('quote');
+	    quote.on('child_changed', function (quote) {
+	      _this.fetchQuote();
+	    });
+	  },
+	  fetchQuote: function fetchQuote() {
+	    var that = this;
+	    axios.get("https://kagami-b6130.firebaseio.com/quote.json").then(function (quote) {
+	      that.setState({
+	        author: quote.data.author,
+	        fullQuote: quote.data.fullQuote,
+	        coords: [quote.data.x, quote.data.y]
+	      });
+	    });
+	  },
+	  render: function render() {
+	    var containerStyle = {
+	      display: "block",
+	      position: "absolute",
+	      top: this.state.coords[1] * 100 + "%",
+	      left: this.state.coords[0] * 100 + "%"
+	    };
+	    var quoteStyle = {
+	      color: "white",
+	      fontSize: "24px",
+	      fontFamily: "Noto Sans",
+	      fontStyle: "italic"
+	    };
+	    var authorStyle = {
+	      color: "white",
+	      fontSize: "24px"
+	    };
+	
+	    if (this.state.author && this.state.fullQuote) {
+	      return React.createElement(
+	        'div',
+	        { style: containerStyle },
+	        React.createElement(
+	          'div',
+	          { style: quoteStyle },
+	          React.createElement(
+	            'q',
+	            null,
+	            this.state.fullQuote
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { style: authorStyle },
+	          '-',
+	          this.state.author
+	        )
+	      );
+	    } else {
+	      return React.createElement('div', null);
+	    }
+	  }
+	});
+	
+	module.exports = Time;
+
+/***/ },
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(261);
+	var content = __webpack_require__(264);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(269)(content, {});
+	var update = __webpack_require__(272)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25719,10 +25916,10 @@
 	}
 
 /***/ },
-/* 261 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(262)();
+	exports = module.exports = __webpack_require__(265)();
 	// imports
 	
 	
@@ -25733,7 +25930,7 @@
 
 
 /***/ },
-/* 262 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25791,7 +25988,7 @@
 		if (!cssMapping) {
 			return content;
 		}
-		var convertSourceMap = __webpack_require__(263);
+		var convertSourceMap = __webpack_require__(266);
 		var sourceMapping = convertSourceMap.fromObject(cssMapping).toComment({multiline: true});
 		var sourceURLs = cssMapping.sources.map(function (source) {
 			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
@@ -25801,7 +25998,7 @@
 
 
 /***/ },
-/* 263 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/* eslint-disable */
@@ -25809,7 +26006,7 @@
 	// XXXXX: This file should not exist. Working around a core level bug
 	// that prevents using fs at loaders.
 	//var fs = require('fs'); // XXX
-	var path = __webpack_require__(268);
+	var path = __webpack_require__(271);
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
@@ -25948,10 +26145,10 @@
 	  }
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(267).Buffer))
 
 /***/ },
-/* 264 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -25964,9 +26161,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(265)
-	var ieee754 = __webpack_require__(266)
-	var isArray = __webpack_require__(267)
+	var base64 = __webpack_require__(268)
+	var ieee754 = __webpack_require__(269)
+	var isArray = __webpack_require__(270)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -27747,7 +27944,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 265 */
+/* 268 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -27867,7 +28064,7 @@
 
 
 /***/ },
-/* 266 */
+/* 269 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -27957,7 +28154,7 @@
 
 
 /***/ },
-/* 267 */
+/* 270 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -27968,7 +28165,7 @@
 
 
 /***/ },
-/* 268 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -28199,7 +28396,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 269 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28449,96 +28646,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(214)(__webpack_require__(38));
-	
-	module.exports = React.createClass({
-	
-	    displayName: "CloudThunderstormInline",
-	
-	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "44px", "viewBox": "0 0 44 44", "enableBackground": "new 0 0 44 44" };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        helpers.applyXmlAttributes(this);
-	    },
-	    render: function render() {
-	        var props = this.props;
-	        var children = props.children;
-	
-	        return React.createElement(
-	            'svg',
-	            this.props,
-	            React.createElement('path', { fill: '#FFFFFF', d: 'M32,32c-0.3,0-0.6,0-1.1,0l3.6-4.399C37.7,26.5,40,23.5,40,20c0-4.399-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.301\r C26.5,8,21.7,4,16,4C9.4,4,4,9.4,4,16c0,5.4,3.6,10,8.6,11.5l-1.3,3.801C4.8,29.301,0,23.2,0,16C0,7.2,7.2,0,16,0\r c6,0,11.2,3.301,14,8.2c0.7-0.1,1.3-0.2,2-0.2c6.6,0,12,5.4,12,12C44,26.7,38.6,32,32,32z M20,18h10l-6,10h7L18,44l3.6-12H15L20,18z\r ' }),
-	            React.Children.map(children, function (c) {
-	                return c;
-	            })
-	        );
-	    }
-	});
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(7);
-	var weatherIcons = __webpack_require__(212).default;
-	
-	var DisplayForecastInfo = function DisplayForecastInfo(_ref) {
-	  var weather = _ref.weather;
-	
-	  var icon = weatherIcons[weather.weather[0].description];
-	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
-	  var Special = icon ? icon : weatherIcons['clear sky'];
-	  return React.createElement(
-	    'div',
-	    { style: { display: 'flex', flexDirection: 'column' } },
-	    React.createElement(Special, { className: 'forecast_icon' }),
-	    React.createElement(
-	      'div',
-	      { style: { display: 'flex', flexDirection: 'column' } },
-	      React.createElement(
-	        'div',
-	        { style: { display: 'flex', flexDirection: 'column' } },
-	        React.createElement(
-	          'span',
-	          null,
-	          'High'
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          Math.round(weather.temp.max)
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: { display: 'flex', flexDirection: 'column' } },
-	        React.createElement(
-	          'span',
-	          null,
-	          'Low'
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          Math.round(weather.temp.min)
-	        )
-	      )
-	    )
-	  );
-	};
-	
-	module.exports = DisplayForecastInfo;
 
 /***/ }
 /******/ ]);
