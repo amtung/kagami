@@ -49,11 +49,11 @@ var Forecast = React.createClass({
     return list.splice(0,5).map((day, indx) => <DisplayWeatherInfo key={indx} weather={day}/>)
   },
   render() {
-    const {apiWeather, apiWeather5Day, isFiveDayForecast} = this.state;
+    const { apiWeather5Day, x, y } = this.state;
     const fiveDayStyle = {
       position: 'absolute',
-      top: 200, 
-      left: 300, 
+      top: `${y*100}%`, 
+      left: `${y*100}%`, 
       width: '50%', 
       display: 'flex'
     };

@@ -60,7 +60,6 @@
 	var Weather = __webpack_require__(210);
 	var Forecast = __webpack_require__(259);
 	var ToDo = __webpack_require__(260);
-	console.log(Forecast);
 	__webpack_require__(261);
 	
 	var config = {
@@ -83,13 +82,13 @@
 	      isTimeVisible: false,
 	      isWeatherVisible: false,
 	      isForecastVisible: false,
+	      isToDoVisible: false,
 	      location: 11362 };
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
 	    // weather listener
-	    console.log("con");
 	    var weather = firebase.database().ref().child('weather');
 	    var onMirrorWeather = weather.child('onMirror');
 	    onMirrorWeather.on('value', function (snap) {
@@ -99,7 +98,6 @@
 	    var forecast = firebase.database().ref().child('forecast');
 	    var onMirrorForecast = forecast.child('onMirror');
 	    onMirrorForecast.on('value', function (snap) {
-	      console.log(snap.val());
 	      _this.setState({ isForecastVisible: snap.val() });
 	    });
 	
@@ -23952,43 +23950,24 @@
 	      _this2.setState({ apiWeather: data });
 	    });
 	  },
-	  fetch5Day: function fetch5Day() {
-	    var _this3 = this;
-	
-	    var _state2 = this.state,
-	        location = _state2.location,
-	        fahrenheit = _state2.fahrenheit;
-	    // imperial == fahrenheit, metric ==  Celsius
-	
-	    var temp = fahrenheit ? 'imperial' : 'metric';
-	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref3) {
-	      var data = _ref3.data;
-	
-	      _this3.setState({ apiWeather5Day: data });
-	    });
-	  },
-	  showFiveDayForcast: function showFiveDayForcast() {
-	    var list = this.state.apiWeather5Day.list;
-	
-	    return list.splice(0, 4).map(function (day, indx) {
-	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
-	    });
-	  },
 	  render: function render() {
-	    var fiveDayStyle = {
+	    var _state2 = this.state,
+	        apiWeather = _state2.apiWeather,
+	        x = _state2.x,
+	        y = _state2.y;
+	
+	    var style = {
 	      position: 'absolute',
-	      top: 200,
-	      left: 300,
-	      width: '50%',
-	      display: 'flex'
+	      top: y * 100 + '%',
+	      left: x * 100 + '%'
 	    };
 	    return React.createElement(
 	      'div',
-	      null,
+	      { style: style },
 	      this.state.apiWeather ? React.createElement(DisplayWeatherInfo, { weather: this.state.apiWeather }) : React.createElement(
 	        'div',
 	        null,
-	        'loading'
+	        'Loading Weather'
 	      )
 	    );
 	  }
@@ -24008,7 +23987,6 @@
 	var DisplayWeatherInfo = function DisplayWeatherInfo(_ref) {
 	  var weather = _ref.weather;
 	
-	  console.log(weatherIcons);
 	  var icon = weatherIcons[weather.weather[0].description];
 	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
 	  var Special = icon ? icon : weatherIcons['clear sky'];
@@ -25657,14 +25635,14 @@
 	  },
 	  render: function render() {
 	    var _state2 = this.state,
-	        apiWeather = _state2.apiWeather,
 	        apiWeather5Day = _state2.apiWeather5Day,
-	        isFiveDayForecast = _state2.isFiveDayForecast;
+	        x = _state2.x,
+	        y = _state2.y;
 	
 	    var fiveDayStyle = {
 	      position: 'absolute',
-	      top: 200,
-	      left: 300,
+	      top: y * 100 + '%',
+	      left: y * 100 + '%',
 	      width: '50%',
 	      display: 'flex'
 	    };
@@ -25809,7 +25787,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n  width: 25%;\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
 	
 	// exports
 
