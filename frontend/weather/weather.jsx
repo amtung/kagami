@@ -50,31 +50,18 @@ var Weather = React.createClass({
       this.setState({apiWeather: data})
     })
   },
-  fetch5Day(){
-    const {location, fahrenheit} = this.state;
-    // imperial == fahrenheit, metric ==  Celsius
-    const temp = fahrenheit ? 'imperial' : 'metric';
-    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${location}&units=${temp}&appid=93163a043d0bde0df1a79f0fdebc744f`).then(({data}) => {
-      this.setState({apiWeather5Day: data})
-    })
-  },
-  showFiveDayForcast(){
-    const {apiWeather5Day: {list}} = this.state;
-    return list.splice(0,4).map((day, indx) => <DisplayWeatherInfo key={indx} weather={day}/>)
-  },
   render() {
-    const fiveDayStyle = {
+    const { apiWeather, x, y } = this.state;
+    const style = {
       position: 'absolute',
-      top: 200, 
-      left: 300, 
-      width: '50%', 
-      display: 'flex'
+      top: `${y*100}%`, 
+      left: `${x*100}%`, 
     };
     return(
-      <div>
+      <div style={style}>
         {this.state.apiWeather
           ? <DisplayWeatherInfo weather={this.state.apiWeather}/>
-          : <div>loading</div>}
+          : <div>Loading Weather</div>}
       </div>
     )
   }

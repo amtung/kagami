@@ -2,7 +2,6 @@ const React = require('react');
 const weatherIcons = require('./icons').default;
 
 const DisplayWeatherInfo = ({ weather }) => {
-  console.log(weatherIcons)
   const icon = weatherIcons[weather.weather[0].description]
   // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
   const Special = icon ? icon : weatherIcons['clear sky']

@@ -34,7 +34,6 @@ var App = React.createClass({
   },
   componentDidMount: function() {
     // weather listener
-    console.log("con")
     const weather = firebase.database().ref().child('weather');
     const onMirrorWeather = weather.child('onMirror');
     onMirrorWeather.on('value', snap => {
@@ -44,7 +43,6 @@ var App = React.createClass({
     const forecast = firebase.database().ref().child('forecast');
     const onMirrorForecast = forecast.child('onMirror');
     onMirrorForecast.on('value', snap => {
-      console.log(snap.val())
       this.setState({isForecastVisible: snap.val()})
     })
 
