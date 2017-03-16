@@ -1,7 +1,7 @@
 var React = require('react');
 var axios = require('axios');
 import * as firebase from 'firebase';
-var DisplayWeatherInfo = require('./displayWeatherInfo');
+var DisplayForecastInfo = require('./displayForecastInfo');
 
 var Forecast = React.createClass({
   getInitialState() {
@@ -40,13 +40,14 @@ var Forecast = React.createClass({
     const {location, fahrenheit} = this.state;
     // imperial == fahrenheit, metric ==  Celsius
     const temp = fahrenheit ? 'imperial' : 'metric';
-    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${location}&units=${temp}&appid=93163a043d0bde0df1a79f0fdebc744f`).then(({data}) => {
+    axios.get(`http://api.openweathermap.org/data/2.5/forecast/daily?zip=${location}&units=${temp}&appid=93163a043d0bde0df1a79f0fdebc744f&cnt=5`).then(({data}) => {
       this.setState({apiWeather5Day: data})
     })
   },
   showFiveDayForcast(){
     const {apiWeather5Day: {list}} = this.state;
-    return list.splice(0,5).map((day, indx) => <DisplayWeatherInfo key={indx} weather={day}/>)
+    console.log(list)
+    return list.map((day, indx) => <DisplayForecastInfo key={indx} weather={day}/>)
   },
   render() {
     const { apiWeather5Day, x, y } = this.state;
@@ -57,7 +58,7 @@ var Forecast = React.createClass({
       width: '50%', 
       display: 'flex'
     };
-    return(
+    return (
       <div>
         {apiWeather5Day 
           ? <div style={fiveDayStyle}>{this.showFiveDayForcast()}</div>

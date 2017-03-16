@@ -58,9 +58,9 @@
 	
 	var Time = __webpack_require__(209);
 	var Weather = __webpack_require__(210);
-	var Forecast = __webpack_require__(259);
-	var ToDo = __webpack_require__(260);
-	__webpack_require__(261);
+	var Forecast = __webpack_require__(258);
+	var ToDo = __webpack_require__(259);
+	__webpack_require__(260);
 	
 	var config = {
 	  apiKey: "AIzaSyD65RVK53H_bAllqyrrjuSg_t05v8OF5Wk",
@@ -24043,11 +24043,11 @@
 	  'broken clouds': __webpack_require__(253),
 	  'shower rain': __webpack_require__(254),
 	  'rain': __webpack_require__(255),
-	  'thunderstorm': __webpack_require__(256),
-	  'light snow': __webpack_require__(257),
-	  'snow': __webpack_require__(257),
-	  'mist': __webpack_require__(258),
-	  'overcast clouds': __webpack_require__(258)
+	  'thunderstorm': __webpack_require__(270),
+	  'light snow': __webpack_require__(256),
+	  'snow': __webpack_require__(256),
+	  'mist': __webpack_require__(257),
+	  'overcast clouds': __webpack_require__(257)
 	};
 
 /***/ },
@@ -24064,7 +24064,7 @@
 	    displayName: "SunInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "48px", "height": "48px", "viewBox": "0 0 48 48", "enableBackground": "new 0 0 48 48" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -24076,12 +24076,7 @@
 	        return React.createElement(
 	            'svg',
 	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M72,52h-4c-1.1,0-2-0.9-2-2s0.9-2,2-2h4c1.1,0,2,0.9,2,2S73.1,52,72,52z M64.1,38.7c-0.8,0.8-2,0.8-2.8,0 c-0.8-0.8-0.8-2,0-2.8l2.8-2.8c0.8-0.8,2-0.8,2.8,0c0.8,0.8,0.8,2,0,2.8L64.1,38.7z M50,62c-6.6,0-12-5.4-12-12c0-6.6,5.4-12,12-12 c6.6,0,12,5.4,12,12C62,56.6,56.6,62,50,62z M50,42c-4.4,0-8,3.6-8,8c0,4.4,3.6,8,8,8s8-3.6,8-8C58,45.6,54.4,42,50,42z M50,34 c-1.1,0-2-0.9-2-2v-4c0-1.1,0.9-2,2-2c1.1,0,2,0.9,2,2v4C52,33.1,51.1,34,50,34z M35.9,38.7L33,35.9c-0.8-0.8-0.8-2,0-2.8 s2-0.8,2.8,0l2.8,2.8c0.8,0.8,0.8,2,0,2.8S36.6,39.5,35.9,38.7z M34,50c0,1.1-0.9,2-2,2h-4c-1.1,0-2-0.9-2-2s0.9-2,2-2h4 C33.1,48,34,48.9,34,50z M35.9,61.3c0.8-0.8,2-0.8,2.8,0c0.8,0.8,0.8,2,0,2.8L35.9,67c-0.8,0.8-2,0.8-2.8,0c-0.8-0.8-0.8-2,0-2.8 L35.9,61.3z M50,66c1.1,0,2,0.9,2,2v4c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2v-4C48,66.9,48.9,66,50,66z M64.1,61.3l2.8,2.8 c0.8,0.8,0.8,2,0,2.8c-0.8,0.8-2,0.8-2.8,0l-2.8-2.8c-0.8-0.8-0.8-2,0-2.8C62.1,60.5,63.4,60.5,64.1,61.3z' }),
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M46,26h-4c-1.101,0-2-0.9-2-2s0.899-2,2-2h4c1.1,0,2,0.9,2,2S47.1,26,46,26z M38.1,12.7\r c-0.801,0.8-2,0.8-2.801,0c-0.799-0.8-0.799-2,0-2.8L38.1,7.1c0.8-0.8,2-0.8,2.8,0c0.8,0.801,0.8,2,0,2.801L38.1,12.7z M24,36\r c-6.6,0-12-5.4-12-12s5.4-12,12-12s12,5.4,12,12S30.6,36,24,36z M24,16c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S28.399,16,24,16z\r M24,8c-1.1,0-2-0.9-2-2V2c0-1.1,0.9-2,2-2s2,0.9,2,2v4C26,7.1,25.1,8,24,8z M9.899,12.7L7.1,9.9c-0.8-0.801-0.8-2,0-2.801\r c0.8-0.8,2-0.8,2.8,0L12.7,9.9c0.8,0.8,0.8,2,0,2.8C11.899,13.5,10.6,13.5,9.899,12.7z M8,24c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2\r s0.9-2,2-2h4C7.1,22,8,22.9,8,24z M9.899,35.3c0.8-0.8,2-0.8,2.8,0c0.8,0.8,0.8,2,0,2.8l-2.8,2.801c-0.8,0.8-2,0.8-2.8,0\r c-0.8-0.801-0.8-2,0-2.801L9.899,35.3z M24,40c1.1,0,2,0.9,2,2v4c0,1.1-0.9,2-2,2s-2-0.9-2-2v-4C22,40.9,22.899,40,24,40z\r M38.1,35.3l2.8,2.8c0.8,0.801,0.8,2,0,2.801c-0.8,0.8-2,0.8-2.8,0L35.299,38.1c-0.799-0.8-0.799-2,0-2.8\r C36.1,34.5,37.399,34.5,38.1,35.3z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25329,7 +25324,7 @@
 	    displayName: "CloudSunInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "54px", "height": "48px", "viewBox": "0 0 54 48", "enableBackground": "new 0 0 54 48" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -25341,12 +25336,7 @@
 	        return React.createElement(
 	            'svg',
 	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M79.9,43.6h-4c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h4c1.1,0,2,0.9,2,2C81.9,42.7,81,43.6,79.9,43.6z M72.1,30.3 c-0.8,0.8-2,0.8-2.8,0c-0.8-0.8-0.8-2,0-2.8l2.8-2.8c0.8-0.8,2-0.8,2.8,0c0.8,0.8,0.8,2,0,2.8L72.1,30.3z M69.1,45.9L69.1,45.9 c1.7,2.1,2.8,4.8,2.8,7.7c0,6.6-5.4,12-12,12c-2.8,0-12.8,0-16,0c-8.8,0-16-7.2-16-16s7.2-16,16-16c1.6,0,3.1,0.2,4.5,0.7 c2.2-2.8,5.6-4.7,9.5-4.7c6.6,0,12,5.4,12,12C69.9,43.2,69.6,44.6,69.1,45.9z M31.9,49.6c0,6.6,5.4,12,12,12c3.6,0,13,0,16,0 c4.4,0,8-3.6,8-8c0-4.4-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.3c-1.2-5.3-6-9.3-11.7-9.3C37.3,37.6,31.9,43,31.9,49.6z M57.9,33.6 c-2.2,0-4.2,0.9-5.7,2.3c2.3,1.4,4.3,3.5,5.6,5.9c0.7-0.1,1.3-0.2,2-0.2c2.1,0,4.1,0.6,5.9,1.5l0,0c0.1-0.5,0.2-1,0.2-1.5 C65.9,37.2,62.4,33.6,57.9,33.6z M57.9,25.6c-1.1,0-2-0.9-2-2v-4c0-1.1,0.9-2,2-2c1.1,0,2,0.9,2,2v4C59.9,24.7,59,25.6,57.9,25.6z M43.8,30.3L41,27.5c-0.8-0.8-0.8-2,0-2.8c0.8-0.8,2-0.8,2.8,0l2.8,2.8c0.8,0.8,0.8,2,0,2.8C45.9,31.1,44.6,31.1,43.8,30.3z' }),
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M52,26h-4c-1.1,0-2-0.899-2-2c0-1.1,0.9-2,2-2h4c1.101,0,2,0.9,2,2C54,25.101,53.101,26,52,26z M44.201,12.7\r c-0.801,0.8-2,0.8-2.801,0c-0.8-0.8-0.8-2,0-2.8l2.801-2.8c0.799-0.8,2-0.8,2.799,0c0.801,0.8,0.801,2,0,2.8L44.201,12.7z\r M41.201,28.301L41.201,28.301C42.9,30.4,44,33.101,44,36c0,6.601-5.399,12-12,12c-2.799,0-12.799,0-16,0c-8.8,0-16-7.199-16-16\r c0-8.8,7.2-16,16-16c1.6,0,3.1,0.2,4.5,0.7c2.2-2.8,5.6-4.7,9.5-4.7c6.601,0,12,5.4,12,12C42,25.601,41.701,27,41.201,28.301z M4,32\r c0,6.601,5.4,12,12,12c3.6,0,13,0,16,0c4.4,0,8-3.6,8-8c0-4.399-3.6-8-8-8c-1.6,0-3.1,0.5-4.299,1.301C26.5,24,21.701,20,16,20\r C9.4,20,4,25.4,4,32z M30,16c-2.199,0-4.199,0.9-5.699,2.301c2.3,1.399,4.3,3.5,5.6,5.899c0.7-0.1,1.301-0.2,2-0.2\r c2.1,0,4.1,0.601,5.801,1.5l0,0c0.1-0.5,0.199-1,0.199-1.5C38,19.601,34.5,16,30,16z M30,8c-1.1,0-2-0.899-2-2V2c0-1.1,0.9-2,2-2\r c1.101,0,2,0.9,2,2v4C32,7.101,31.101,8,30,8z M15.9,12.7l-2.8-2.8c-0.8-0.8-0.8-2,0-2.8s2-0.8,2.8,0l2.8,2.8c0.8,0.8,0.8,2,0,2.8\r C18,13.5,16.701,13.5,15.9,12.7z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25368,7 +25358,7 @@
 	    displayName: "CloudRainInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "42.4px", "viewBox": "0 0 44 42.4", "enableBackground": "new 0 0 44 42.4" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -25381,11 +25371,14 @@
 	            'svg',
 	            this.props,
 	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
+	                'g',
+	                null,
+	                React.createElement(
+	                    'g',
+	                    null,
+	                    React.createElement('path', { fill: '#FFFFFF', d: 'M31.949,8c-0.699,0-1.399,0.1-2,0.199C27.25,3.3,21.95,0,15.95,0c-8.8,0-16,7.199-16,16\r c0,6,3.3,11.2,8.2,13.899c0.3-1.299,0.9-2.5,1.9-3.398l0.1-0.102c-3.6-2.1-6.1-6-6.1-10.399c0-6.601,5.4-12,12-12\r c5.7,0,10.399,4,11.7,9.3c1.3-0.8,2.699-1.3,4.3-1.3c4.399,0,8,3.6,8,8c0,3.399-2.2,6.399-5.2,7.5c0.801,1.1,1.2,2.5,1.2,3.799\r c4.7-1.6,8-6.1,8-11.299C43.949,13.4,38.65,8,31.949,8z M14.95,27.3l-2.1,2.1c-1.2,1.201-1.2,3.102,0,4.201\r c1.2,1.199,3.1,1.199,4.2,0c1.2-1.201,1.2-3.1,0-4.201L14.95,27.3z M21.95,35.2l-2.1,2.1c-1.2,1.201-1.2,3.1,0,4.201\r c1.2,1.199,3.1,1.199,4.2,0c1.2-1.201,1.2-3.102,0-4.201L21.95,35.2z M28.949,27.3l-2.1,2.1c-1.199,1.201-1.199,3.102,0,4.201\r c1.2,1.199,3.1,1.199,4.2,0c1.2-1.201,1.2-3.1,0-4.201L28.949,27.3z' })
+	                )
 	            ),
-	            React.createElement('path', { className: 'st0', d: 'M63.9,64.9v-4.4c2.4-1.4,4-4,4-6.9c0-4.4-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.3c-1.2-5.3-6-9.3-11.7-9.3 c-6.6,0-12,5.4-12,12c0,3.5,1.6,6.7,4,8.9v4.9c-4.8-2.8-8-7.9-8-13.8c0-8.8,7.2-16,16-16c6,0,11.2,3.3,14,8.2c0.7-0.1,1.3-0.2,2-0.2 c6.6,0,12,5.4,12,12C71.9,58.9,68.6,63.3,63.9,64.9z M41.9,53.6c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2s-2-0.9-2-2v-16 C39.9,54.5,40.8,53.6,41.9,53.6z M49.9,57.6c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2s-2-0.9-2-2v-16C47.9,58.5,48.8,57.6,49.9,57.6z M57.9,53.6c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2s-2-0.9-2-2v-16C55.9,54.5,56.8,53.6,57.9,53.6z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25407,7 +25400,7 @@
 	    displayName: "CloudRainSunInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "54px", "height": "58.4px", "viewBox": "0 0 54 58.4", "enableBackground": "new 0 0 54 58.4" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -25419,12 +25412,7 @@
 	        return React.createElement(
 	            'svg',
 	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M79.9,43.6h-4c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h4c1.1,0,2,0.9,2,2C81.9,42.7,81,43.6,79.9,43.6z M72.1,30.3 c-0.8,0.8-2,0.8-2.8,0c-0.8-0.8-0.8-2,0-2.8l2.8-2.8c0.8-0.8,2-0.8,2.8,0c0.8,0.8,0.8,2,0,2.8L72.1,30.3z M69.1,45.9L69.1,45.9 c1.8,2.1,2.8,4.8,2.8,7.7c0,5.2-3.3,9.7-8,11.3v-4.4c2.4-1.4,4-4,4-6.9c0-4.4-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.3 c-1.2-5.3-6-9.3-11.7-9.3c-6.6,0-12,5.4-12,12c0,3.5,1.6,6.7,4,8.9v4.9c-4.8-2.8-8-7.9-8-13.8c0-8.8,7.2-16,16-16 c1.6,0,3.1,0.2,4.5,0.7c2.2-2.8,5.6-4.7,9.5-4.7c6.6,0,12,5.4,12,12C69.9,43.2,69.7,44.6,69.1,45.9z M57.9,33.6 c-2.2,0-4.2,0.9-5.7,2.3c2.3,1.4,4.3,3.5,5.6,5.9c0.7-0.1,1.3-0.2,2-0.2c2.1,0,4.1,0.6,5.9,1.5l0,0c0.1-0.5,0.2-1,0.2-1.5 C65.9,37.2,62.4,33.6,57.9,33.6z M57.9,25.6c-1.1,0-2-0.9-2-2v-4c0-1.1,0.9-2,2-2c1.1,0,2,0.9,2,2v4C59.9,24.8,59,25.6,57.9,25.6z M43.8,30.3L41,27.5c-0.8-0.8-0.8-2,0-2.8c0.8-0.8,2-0.8,2.8,0l2.8,2.8c0.8,0.8,0.8,2,0,2.8C45.8,31.1,44.6,31.1,43.8,30.3z M41.9,53.6c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2v-16C39.9,54.5,40.8,53.6,41.9,53.6z M49.9,57.6c1.1,0,2,0.9,2,2 v16c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2v-16C47.9,58.5,48.8,57.6,49.9,57.6z M57.9,53.6c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2 c-1.1,0-2-0.9-2-2v-16C55.9,54.5,56.8,53.6,57.9,53.6z' }),
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M52.051,26h-4c-1.101,0-2-0.9-2-2c0-1.101,0.899-2,2-2h4c1.1,0,2,0.899,2,2C54.051,25.1,53.15,26,52.051,26z\r M44.25,12.699c-0.8,0.801-2,0.801-2.8,0c-0.8-0.8-0.8-2,0-2.8l2.8-2.8c0.801-0.8,2-0.8,2.801,0c0.8,0.8,0.8,2,0,2.8L44.25,12.699z\r M41.25,28.3L41.25,28.3c1.7,2.099,2.801,4.8,2.801,7.701l0,0c0,5.199-3.301,9.699-8,11.299c0-1.299-0.4-2.699-1.2-3.799\r c3.1-1.102,5.2-4.102,5.2-7.5c0-4.4-3.601-8-8-8c-1.601,0-3.101,0.5-4.301,1.3c-1.2-5.3-6-9.3-11.7-9.3c-6.6,0-12,5.399-12,12\r c0,1.398,0.3,2.699,0.7,4l0,0c1,2.699,2.9,5,5.4,6.398l-0.1,0.102c-1,1-1.6,2.199-1.9,3.398c-3.8-2.1-6.6-5.699-7.7-9.898l0,0\r c-0.3-1.301-0.5-2.602-0.5-4c0-8.801,7.2-16,16-16c1.6,0,3.1,0.199,4.5,0.699c2.2-2.8,5.6-4.699,9.5-4.699c6.601,0,12,5.399,12,12\r C42.051,25.6,41.75,27,41.25,28.3z M30.051,16c-2.2,0-4.2,0.899-5.7,2.3c2.3,1.399,4.3,3.5,5.6,5.899c0.7-0.1,1.3-0.199,2-0.199\r c2.101,0,4.101,0.6,5.9,1.5l0,0c0.1-0.5,0.1-1,0.1-1.5C38.051,19.6,34.551,16,30.051,16z M30.051,8c-1.101,0-2-0.9-2-2V2\r c0-1.101,0.899-2,2-2c1.1,0,2,0.899,2,2v4C32.051,7.1,31.15,8,30.051,8z M15.95,12.699l-2.8-2.8c-0.8-0.8-0.8-2,0-2.8s2-0.8,2.8,0\r l2.8,2.8c0.8,0.8,0.8,2,0,2.8C18.05,13.5,16.75,13.5,15.95,12.699z M15.05,43.3l2.1,2.1c1.2,1.201,1.2,3.102,0,4.201\r c-1.2,1.199-3.1,1.199-4.2,0c-1.2-1.201-1.2-3.1,0-4.201L15.05,43.3z M22.05,51.2l2.1,2.1c1.2,1.201,1.2,3.1,0,4.201\r c-1.2,1.199-3.1,1.199-4.2,0c-1.2-1.201-1.2-3.102,0-4.201L22.05,51.2z M29.051,43.3l2.1,2.1c1.2,1.201,1.2,3.102,0,4.201\r c-1.2,1.199-3.1,1.199-4.2,0c-1.2-1.201-1.2-3.1,0-4.201L29.051,43.3z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25443,10 +25431,10 @@
 	
 	module.exports = React.createClass({
 	
-	    displayName: "CloudLightningInline",
+	    displayName: "CloudSnowInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "40px", "viewBox": "0 0 44 40", "enableBackground": "new 0 0 44 40" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -25458,12 +25446,7 @@
 	        return React.createElement(
 	            'svg',
 	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M60,65.6c-0.3,0-0.6,0-1.1,0l3.6-4.4c3.2-1.1,5.5-4.1,5.5-7.6c0-4.4-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.3 c-1.2-5.3-6-9.3-11.7-9.3c-6.6,0-12,5.4-12,12c0,5.4,3.6,10,8.6,11.5l-1.3,3.8c-6.5-2-11.3-8.1-11.3-15.3c0-8.8,7.2-16,16-16 c6,0,11.2,3.3,14,8.2c0.7-0.1,1.3-0.2,2-0.2c6.6,0,12,5.4,12,12S66.6,65.6,60,65.6z M48,51.6h10l-6,10h7l-13,16l3.6-12H43L48,51.6z' }),
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M36,31.301v-4.4c2.4-1.4,4-4,4-6.9c0-4.399-3.6-8-8-8c-1.6,0-3.1,0.5-4.299,1.301C26.5,8,21.701,4,16,4\r C9.4,4,4,9.4,4,16c0,3.5,1.6,6.7,4,8.9v4.9C3.201,27,0,21.9,0,16c0-8.8,7.2-16,16-16c6,0,11.201,3.301,14,8.2\r c0.701-0.1,1.301-0.2,2-0.2c6.601,0,12,5.4,12,12C44,25.301,40.701,29.7,36,31.301z M14,24c1.1,0,2,0.9,2,2c0,1.101-0.9,2-2,2\r s-2-0.899-2-2C12,24.9,12.9,24,14,24z M14,32c1.1,0,2,0.9,2,2c0,1.101-0.9,2-2,2s-2-0.899-2-2C12,32.9,12.9,32,14,32z M22,28\r c1.1,0,2,0.9,2,2c0,1.101-0.899,2-2,2s-2-0.899-2-2C20,28.9,20.9,28,22,28z M22,36c1.1,0,2,0.9,2,2c0,1.101-0.899,2-2,2\r s-2-0.899-2-2C20,36.9,20.9,36,22,36z M30,24c1.101,0,2,0.9,2,2c0,1.101-0.899,2-2,2c-1.1,0-2-0.899-2-2C28,24.9,28.9,24,30,24z\r M30,32c1.101,0,2,0.9,2,2c0,1.101-0.899,2-2,2c-1.1,0-2-0.899-2-2C28,32.9,28.9,32,30,32z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25482,10 +25465,10 @@
 	
 	module.exports = React.createClass({
 	
-	    displayName: "CloudSnowAltInline",
+	    displayName: "CloudFogInline",
 	
 	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "40px", "viewBox": "0 0 44 40", "enableBackground": "new 0 0 44 40" };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        helpers.applyXmlAttributes(this);
@@ -25497,12 +25480,7 @@
 	        return React.createElement(
 	            'svg',
 	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M62,65.5v-4.1c3.4-0.9,6-4,6-7.7c0-4.4-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.3c-1.2-5.3-6-9.3-11.7-9.3 c-6.6,0-12,5.4-12,12c0,4.4,2.4,8.3,6,10.4v4.4c-5.9-2.4-10-8.1-10-14.8c0-8.8,7.2-16,16-16c6,0,11.2,3.3,14,8.2 c0.7-0.1,1.3-0.2,2-0.2c6.6,0,12,5.4,12,12C72,59.6,67.7,64.5,62,65.5z M43.1,59.6c0.6-1,1.8-1.3,2.7-0.7l2.2,1.3v-2.5 c0-1.1,0.9-2,2-2s2,0.9,2,2v2.5l2.2-1.3c1-0.6,2.2-0.2,2.7,0.7c0.6,1,0.2,2.2-0.7,2.7L54,63.6l2.2,1.3c1,0.6,1.3,1.8,0.7,2.7 c-0.6,1-1.8,1.3-2.7,0.7L52,67.1v2.5c0,1.1-0.9,2-2,2s-2-0.9-2-2v-2.5l-2.2,1.3c-1,0.6-2.2,0.2-2.7-0.7c-0.6-1-0.2-2.2,0.7-2.7 l2.2-1.3l-2.2-1.3C42.8,61.8,42.5,60.6,43.1,59.6z M50,65.6c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2s-2,0.9-2,2C48,64.7,48.9,65.6,50,65.6z ' }),
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M42,32H2c-1.1,0-2-0.899-2-2c0-1.1,0.9-2,2-2h40c1.1,0,2,0.9,2,2C44,31.101,43.1,32,42,32z M42,24H2\r c-1.1,0-2-0.899-2-2c0-1.1,0.9-2,2-2h40c1.1,0,2,0.9,2,2C44,23.101,43.1,24,42,24z M32,12c-1.6,0-3.1,0.5-4.3,1.301\r C26.5,8,21.7,4,16,4C9.4,4,4,9.4,4,16H0C0,7.2,7.2,0,16,0c6,0,11.2,3.301,14,8.2c0.7-0.1,1.3-0.2,2-0.2c5.2,0,9.7,3.301,11.3,8H38.9\r C37.5,13.7,35,12,32,12z M2,36h40c1.1,0,2,0.9,2,2c0,1.101-0.9,2-2,2H2c-1.1,0-2-0.899-2-2C0,36.9,0.9,36,2,36z' }),
 	            React.Children.map(children, function (c) {
 	                return c;
 	            })
@@ -25512,45 +25490,6 @@
 
 /***/ },
 /* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(7);
-	var helpers = __webpack_require__(214)(__webpack_require__(38));
-	
-	module.exports = React.createClass({
-	
-	    displayName: "CloudFogInline",
-	
-	    getDefaultProps: function getDefaultProps() {
-	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[null,\"style\",\"enable-background:new 0 0 100 100;\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "viewBox": "0 0 100 100" };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        helpers.applyXmlAttributes(this);
-	    },
-	    render: function render() {
-	        var props = this.props;
-	        var children = props.children;
-	
-	        return React.createElement(
-	            'svg',
-	            this.props,
-	            React.createElement(
-	                'style',
-	                { type: 'text/css' },
-	                '\n\t.st0{fill:#FFFFFF;}\n'
-	            ),
-	            React.createElement('path', { className: 'st0', d: 'M70,65.6H30c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h40c1.1,0,2,0.9,2,2C72,64.7,71.1,65.6,70,65.6z M70,57.6H30 c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h40c1.1,0,2,0.9,2,2C72,56.7,71.1,57.6,70,57.6z M60,45.6c-1.6,0-3.1,0.5-4.3,1.3 c-1.2-5.3-6-9.3-11.7-9.3c-6.6,0-12,5.4-12,12h-4c0-8.8,7.2-16,16-16c6,0,11.2,3.3,14,8.2c0.7-0.1,1.3-0.2,2-0.2 c5.2,0,9.7,3.3,11.3,8h-4.4C65.5,47.3,63,45.6,60,45.6z M30,69.6h40c1.1,0,2,0.9,2,2c0,1.1-0.9,2-2,2H30c-1.1,0-2-0.9-2-2 C28,70.5,28.9,69.6,30,69.6z' }),
-	            React.Children.map(children, function (c) {
-	                return c;
-	            })
-	        );
-	    }
-	});
-
-/***/ },
-/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25566,7 +25505,7 @@
 	var React = __webpack_require__(7);
 	var axios = __webpack_require__(184);
 	
-	var DisplayWeatherInfo = __webpack_require__(211);
+	var DisplayForecastInfo = __webpack_require__(271);
 	
 	var Forecast = React.createClass({
 	  displayName: 'Forecast',
@@ -25620,7 +25559,7 @@
 	    // imperial == fahrenheit, metric ==  Celsius
 	
 	    var temp = fahrenheit ? 'imperial' : 'metric';
-	    axios.get('http://api.openweathermap.org/data/2.5/forecast?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f').then(function (_ref2) {
+	    axios.get('http://api.openweathermap.org/data/2.5/forecast/daily?zip=' + location + '&units=' + temp + '&appid=93163a043d0bde0df1a79f0fdebc744f&cnt=5').then(function (_ref2) {
 	      var data = _ref2.data;
 	
 	      _this2.setState({ apiWeather5Day: data });
@@ -25629,8 +25568,9 @@
 	  showFiveDayForcast: function showFiveDayForcast() {
 	    var list = this.state.apiWeather5Day.list;
 	
-	    return list.splice(0, 5).map(function (day, indx) {
-	      return React.createElement(DisplayWeatherInfo, { key: indx, weather: day });
+	    console.log(list);
+	    return list.map(function (day, indx) {
+	      return React.createElement(DisplayForecastInfo, { key: indx, weather: day });
 	    });
 	  },
 	  render: function render() {
@@ -25665,7 +25605,7 @@
 	module.exports = Forecast;
 
 /***/ },
-/* 260 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25753,16 +25693,16 @@
 	module.exports = ToDo;
 
 /***/ },
-/* 261 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(262);
+	var content = __webpack_require__(261);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(270)(content, {});
+	var update = __webpack_require__(269)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25779,21 +25719,21 @@
 	}
 
 /***/ },
-/* 262 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(263)();
+	exports = module.exports = __webpack_require__(262)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather*/\n.weather {\n}\n.mainWeather{\n  display: flex;\n}\n.tempContainer{\n  display: flex;\n  flex-direction: column;\n}\n.weather_icon {\n  width: 50%;\n  height: auto;\n}\n.forecast_icon {\n  height: auto;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 263 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25851,7 +25791,7 @@
 		if (!cssMapping) {
 			return content;
 		}
-		var convertSourceMap = __webpack_require__(264);
+		var convertSourceMap = __webpack_require__(263);
 		var sourceMapping = convertSourceMap.fromObject(cssMapping).toComment({multiline: true});
 		var sourceURLs = cssMapping.sources.map(function (source) {
 			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
@@ -25861,7 +25801,7 @@
 
 
 /***/ },
-/* 264 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/* eslint-disable */
@@ -25869,7 +25809,7 @@
 	// XXXXX: This file should not exist. Working around a core level bug
 	// that prevents using fs at loaders.
 	//var fs = require('fs'); // XXX
-	var path = __webpack_require__(269);
+	var path = __webpack_require__(268);
 	
 	var commentRx = /^\s*\/(?:\/|\*)[@#]\s+sourceMappingURL=data:(?:application|text)\/json;(?:charset[:=]\S+?;)?base64,(?:.*)$/mg;
 	var mapFileCommentRx =
@@ -26008,10 +25948,10 @@
 	  }
 	});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(265).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264).Buffer))
 
 /***/ },
-/* 265 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -26024,9 +25964,9 @@
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(266)
-	var ieee754 = __webpack_require__(267)
-	var isArray = __webpack_require__(268)
+	var base64 = __webpack_require__(265)
+	var ieee754 = __webpack_require__(266)
+	var isArray = __webpack_require__(267)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -27807,7 +27747,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 266 */
+/* 265 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -27927,7 +27867,7 @@
 
 
 /***/ },
-/* 267 */
+/* 266 */
 /***/ function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -28017,7 +27957,7 @@
 
 
 /***/ },
-/* 268 */
+/* 267 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -28028,7 +27968,7 @@
 
 
 /***/ },
-/* 269 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -28259,7 +28199,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 270 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28509,6 +28449,96 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(7);
+	var helpers = __webpack_require__(214)(__webpack_require__(38));
+	
+	module.exports = React.createClass({
+	
+	    displayName: "CloudThunderstormInline",
+	
+	    getDefaultProps: function getDefaultProps() {
+	        return { "version": "1.1", "id": "Layer_1", "xmlns": "http://www.w3.org/2000/svg", "data-svgreactloader": "[[\"http://www.w3.org/2000/svg\",\"xlink\",\"http://www.w3.org/1999/xlink\"],[\"http://www.w3.org/2000/svg\",\"space\",\"preserve\"]]", "x": "0px", "y": "0px", "width": "44px", "height": "44px", "viewBox": "0 0 44 44", "enableBackground": "new 0 0 44 44" };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        helpers.applyXmlAttributes(this);
+	    },
+	    render: function render() {
+	        var props = this.props;
+	        var children = props.children;
+	
+	        return React.createElement(
+	            'svg',
+	            this.props,
+	            React.createElement('path', { fill: '#FFFFFF', d: 'M32,32c-0.3,0-0.6,0-1.1,0l3.6-4.399C37.7,26.5,40,23.5,40,20c0-4.399-3.6-8-8-8c-1.6,0-3.1,0.5-4.3,1.301\r C26.5,8,21.7,4,16,4C9.4,4,4,9.4,4,16c0,5.4,3.6,10,8.6,11.5l-1.3,3.801C4.8,29.301,0,23.2,0,16C0,7.2,7.2,0,16,0\r c6,0,11.2,3.301,14,8.2c0.7-0.1,1.3-0.2,2-0.2c6.6,0,12,5.4,12,12C44,26.7,38.6,32,32,32z M20,18h10l-6,10h7L18,44l3.6-12H15L20,18z\r ' }),
+	            React.Children.map(children, function (c) {
+	                return c;
+	            })
+	        );
+	    }
+	});
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(7);
+	var weatherIcons = __webpack_require__(212).default;
+	
+	var DisplayForecastInfo = function DisplayForecastInfo(_ref) {
+	  var weather = _ref.weather;
+	
+	  var icon = weatherIcons[weather.weather[0].description];
+	  // if api pulls a weather description that is not defined in the weatherIcons object use the default icon
+	  var Special = icon ? icon : weatherIcons['clear sky'];
+	  return React.createElement(
+	    'div',
+	    { style: { display: 'flex', flexDirection: 'column' } },
+	    React.createElement(Special, { className: 'forecast_icon' }),
+	    React.createElement(
+	      'div',
+	      { style: { display: 'flex', flexDirection: 'column' } },
+	      React.createElement(
+	        'div',
+	        { style: { display: 'flex', flexDirection: 'column' } },
+	        React.createElement(
+	          'span',
+	          null,
+	          'High'
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          Math.round(weather.temp.max)
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: { display: 'flex', flexDirection: 'column' } },
+	        React.createElement(
+	          'span',
+	          null,
+	          'Low'
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          Math.round(weather.temp.min)
+	        )
+	      )
+	    )
+	  );
+	};
+	
+	module.exports = DisplayForecastInfo;
 
 /***/ }
 /******/ ]);

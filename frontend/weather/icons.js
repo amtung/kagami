@@ -5,9 +5,9 @@ export default {
   'broken clouds': require('./weather_icons/Cloud-Sun.inline.svg'),
   'shower rain': require('./weather_icons/Cloud-Rain.inline.svg'),
   'rain': require('./weather_icons/Cloud-Rain-Sun.inline.svg'),
-  'thunderstorm': require('./weather_icons/Cloud-Lightning.inline.svg'),
-  'light snow': require('./weather_icons/Cloud-Snow-Alt.inline.svg'),
-  'snow': require('./weather_icons/Cloud-Snow-Alt.inline.svg'),
+  'thunderstorm': require('./weather_icons/Cloud-Thunderstorm.inline.svg'),
+  'light snow': require('./weather_icons/Cloud-Snow.inline.svg'),
+  'snow': require('./weather_icons/Cloud-Snow.inline.svg'),
   'mist': require('./weather_icons/Cloud-Fog.inline.svg'),
   'overcast clouds': require('./weather_icons/Cloud-Fog.inline.svg')
 }
