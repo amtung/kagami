@@ -47,11 +47,13 @@ var Time = React.createClass({
       color: "white",
       fontSize: "72px",
       fontFamily: "Noto Sans",
-      fontWeight: "bold"
+      fontWeight: "bold",
+      textAlign: "center"
     }
     let dateStyle = {
       color: "white",
-      fontSize: "24px"
+      fontSize: "30px",
+      textAlign: "center"
     }
     let date, time, hour, datetimeStyle
     if (this.state.time) {
@@ -76,8 +78,8 @@ var Time = React.createClass({
 
     return(
       <div style={datetimeStyle}>
-        <div style={dateStyle}>{date}</div>
         <div style={timeStyle}>{time}</div>
+        <div style={dateStyle}>{date}</div>
       </div>
     )
   }

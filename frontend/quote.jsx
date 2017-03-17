@@ -32,13 +32,15 @@ var Time = React.createClass({
     }
     let quoteStyle = {
       color: "white",
-      fontSize: "24px",
+      fontSize: "30px",
       fontFamily: "Noto Sans",
       fontStyle: "italic"
     }
     let authorStyle = {
       color: "white",
-      fontSize: "24px"
+      fontSize: "30px",
+      textAlign: "right",
+      fontWeight: "bold"
     }
 
     if (this.state.author && this.state.fullQuote) {

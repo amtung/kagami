@@ -24,17 +24,17 @@ var ToDo = React.createClass({
     let imgSrc
     const todos = this.state.todos.lastest;
     let containerStyle = {
-      lineHeight: "25px",
+      lineHeight: "30px",
       marginBottom: "5px"
     }
     let todoStyle = {
       verticalAlign: "bottom",
-      fontSize: "20px",
+      fontSize: "30px",
       margin: "auto"
     }
     let checkboxStyle = {
-      width: "25px",
-      height: "25px",
+      width: "30px",
+      height: "30px",
       marginRight: "5px",
       verticalAlign: "top"
     }
