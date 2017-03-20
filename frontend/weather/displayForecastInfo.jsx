@@ -8,7 +8,11 @@ const DisplayForecastInfo = ({ weather, time, day }) => {
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', minWidth: 145}}>
       <h1 style={{fontSize: 30, margin: 0}}>{day}</h1>
+<<<<<<< HEAD
       <div style={{width: 200, height: 200}}>
+=======
+      <div style={{width: "45%", height: "45%"}}>
+>>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
         <Special className="forecast_icon"/>
       </div>
       <div style={{display: 'flex', width: '85%', justifyContent: 'space-between'}}>

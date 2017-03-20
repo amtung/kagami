@@ -1,5 +1,6 @@
 var React = require('react')
-var axios = require('axios')
+var axios = require('axios');
+var moment = require('moment');
 import * as firebase from 'firebase'
 
 var Time = React.createClass({
@@ -15,7 +16,7 @@ var Time = React.createClass({
     )
   },
   componentDidMount: function() {
-    this.fetchLatLng()
+    this.fetchLatLng();
     const time = firebase.database().ref().child('time');
     time.on('child_changed', time => {
       if (time.key === "location" || time.key === "x" || time.key === "y" || time.key === "militaryTime") {
@@ -30,6 +31,10 @@ var Time = React.createClass({
       axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + time.data.location + "&key=AIzaSyCRFcsIP8jJO4AGISrCI-Iou_en_j6rG08").then(function(location){
         let pos = location.data.results[0].geometry.location
         that.fetchTime(pos.lat, pos.lng)
+        setInterval(() => {
+          console.log("time")
+          that.fetchTime(pos.lat, pos.lng)
+        }, 60000)
       })
     })
   },
@@ -45,7 +50,7 @@ var Time = React.createClass({
   render: function() {
     let timeStyle = {
       color: "white",
-      fontSize: "72px",
+      fontSize: "84px",
       fontFamily: "Noto Sans",
       fontWeight: "bold",
       textAlign: "center"
@@ -57,6 +62,7 @@ var Time = React.createClass({
     }
     let date, time, hour, datetimeStyle, meridiem
     if (this.state.time) {
+<<<<<<< HEAD
       let dateTime = this.state.time.split(" ")
       date = dateTime[0]
       date = this.parseDate(date)
@@ -74,13 +80,23 @@ var Time = React.createClass({
         }
       }
       time = hour + ":" + time[1] + meridiem
+=======
+      if (this.state.militaryTime) {
+        meridiem = ""
+      } else {
+        meridiem = parseInt(time[0]) >= 13 ? " PM" : " AM"
+      }
+      time = moment(this.state.time).format("h:mm") + meridiem
+      date = moment().format('dddd MMMM Do');
+>>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
       let top = (this.state.coords[1] * 100) + "%"
       let left = (this.state.coords[0] * 100) + "%"
       datetimeStyle = {
         display: "block",
         position: "absolute",
         top: top,
-        left: left
+        left: left,
+        width: 'auto',
       }
     } else {
       date = <div />

@@ -55,7 +55,11 @@ var Forecast = React.createClass({
     })
   },
   fetchTime(lat, lng) {
+<<<<<<< HEAD
     axios.get(`http://api.timezonedb.com/v2/get-time-zone?key=ETSK142NQ362&format=json&by=position&lat=${lat}&lng=${lng}`)
+=======
+    axios.get(`http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=${lat}&lng=${lng}`)
+>>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
     .then((time) => {
       console.log("time")
       this.setState({time: time.data.formatted})
