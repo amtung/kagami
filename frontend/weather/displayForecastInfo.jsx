@@ -8,7 +8,9 @@ const DisplayForecastInfo = ({ weather, time, day }) => {
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', minWidth: 145}}>
       <h1 style={{fontSize: 30, margin: 0}}>{day}</h1>
-      <Special className="forecast_icon"/>
+      <div style={{width: 45%, height: 45%}}>
+        <Special className="forecast_icon"/>
+      </div>
       <div style={{display: 'flex', width: '85%', justifyContent: 'space-between'}}>
         <p style={{margin: 0, fontSize: 30, width: 'auto'}}>{`${Math.round(weather.temp.max)}˚`}</p>
         <p style={{margin: 0, fontSize: 30, width: 'auto'}}>{`${Math.round(weather.temp.min)}˚`}</p>
