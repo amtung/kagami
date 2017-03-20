@@ -20,9 +20,10 @@ body {
   flex-direction: column;
 }
 .weather_icon {
-  width: 50%;
+  width: 60%;
   height: auto;
 }
 .forecast_icon {
-  height: auto;
+  width: auto;
+  height: 45%;
 }

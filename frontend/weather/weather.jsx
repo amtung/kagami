@@ -45,7 +45,7 @@ var Weather = React.createClass({
     const {location, fahrenheit} = this.state;
     // imperial == fahrenheit, metric ==  Celsius
     const temp = fahrenheit ? 'imperial' : 'metric';
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${location}&units=${temp}&appid=bcb87e290ad9cf393375a6a5bf00bfb5`)
+    axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${location}&units=${temp}&appid=93163a043d0bde0df1a79f0fdebc744f`)
     .then(({data}) => {
       this.setState({apiWeather: data})
     })

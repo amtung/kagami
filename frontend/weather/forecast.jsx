@@ -1,5 +1,6 @@
 var React = require('react');
 var axios = require('axios');
+var moment = require('moment');
 import * as firebase from 'firebase';
 var DisplayForecastInfo = require('./displayForecastInfo');
 
@@ -12,6 +13,7 @@ var Forecast = React.createClass({
       fahrenheit: true,
       x: 0,
       y: 0,
+      time: null,
     })
   },
   componentDidMount() {
@@ -35,6 +37,31 @@ var Forecast = React.createClass({
         this.fetch5Day()
       }
     })
+    this.fetchLatLng();
+    const time = firebase.database().ref().child('time');
+    time.on('child_changed', time => {
+      if (time.key === "location" || time.key === "x" || time.key === "y" || time.key === "militaryTime") {
+        this.fetchLatLng()
+      }
+    })
+  },
+  fetchLatLng() {
+    axios.get("https://kagami-b6130.firebaseio.com/time.json")
+    .then(({ data: {location} }) => {
+      return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyCRFcsIP8jJO4AGISrCI-Iou_en_j6rG08`)
+    })
+    .then(({data: {results}}) => {
+      console.log(results)
+      const pos = results[0].geometry.location
+      this.fetchTime(pos.lat, pos.lng)
+    })
+  },
+  fetchTime(lat, lng) {
+    console.log(`http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=${lat}&lng=${lng}`)
+    axios.get(`http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=${lat}&lng=${lng}`)
+    .then((time) => {
+      this.setState({time: time.data.formatted})
+    })
   },
   fetch5Day(){
     const {location, fahrenheit} = this.state;
@@ -45,22 +72,33 @@ var Forecast = React.createClass({
     })
   },
   showFiveDayForcast(){
-    const {apiWeather5Day: {list}} = this.state;
+    const {apiWeather5Day: {list}, time} = this.state;
     console.log(list)
-    return list.map((day, indx) => <DisplayForecastInfo key={indx} weather={day}/>)
+    console.log(moment().add(1,'days').calendar())
+    return list.map((day, indx) => 
+      <DisplayForecastInfo 
+        key={indx} 
+        day={moment().add(indx,'days').calendar().split(' ')[0]} 
+        time={moment(time).format("h:mm:ss a")}
+        weather={day}
+      />
+    )
   },
   render() {
-    const { apiWeather5Day, x, y } = this.state;
+    const { apiWeather5Day, x, y, time } = this.state;
     const fiveDayStyle = {
       position: 'absolute',
+      display: 'flex',
+      justifyContent: 'space-between',
       top: `${y*100}%`, 
       left: `${x*100}%`, 
-      width: '50%', 
+      width: '70%',
+      height: '30%',
       display: 'flex'
     };
     return (
       <div>
-        {apiWeather5Day 
+        {apiWeather5Day && time 
           ? <div style={fiveDayStyle}>{this.showFiveDayForcast()}</div>
           : <div>Loading</div>
         }
