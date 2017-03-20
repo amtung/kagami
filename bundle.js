@@ -23833,7 +23833,7 @@
 	  render: function render() {
 	    var timeStyle = {
 	      color: "white",
-	      fontSize: "72px",
+	      fontSize: "84px",
 	      fontFamily: "Noto Sans",
 	      fontWeight: "bold",
 	      textAlign: "center"
@@ -23846,15 +23846,15 @@
 	    var date = void 0,
 	        time = void 0,
 	        hour = void 0,
-	        datetimeStyle = void 0;
+	        datetimeStyle = void 0,
+	        meridiem = void 0;
 	    if (this.state.time) {
-	      // let dateTime = this.state.time.split(" ")
-	      // date = dateTime[0]
-	      // date = this.parseDate(date)
-	      // time = dateTime[1].split(":")
-	      // hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12
-	      // time = hour + ":" + time[1]
-	      time = moment(this.state.time).format("h:mm");
+	      if (this.state.militaryTime) {
+	        meridiem = "";
+	      } else {
+	        meridiem = parseInt(time[0]) >= 13 ? " PM" : " AM";
+	      }
+	      time = moment(this.state.time).format("h:mm") + meridiem;
 	      date = moment().format('dddd MMMM Do');
 	      var top = this.state.coords[1] * 100 + "%";
 	      var left = this.state.coords[0] * 100 + "%";
@@ -41532,7 +41532,11 @@
 	      { style: { fontSize: 30, margin: 0 } },
 	      day
 	    ),
-	    React.createElement(Special, { className: 'forecast_icon' }),
+	    React.createElement(
+	      'div',
+	      { style: { width: "45%", height: "45%" } },
+	      React.createElement(Special, { className: 'forecast_icon' })
+	    ),
 	    React.createElement(
 	      'div',
 	      { style: { display: 'flex', width: '85%', justifyContent: 'space-between' } },
@@ -41774,7 +41778,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather svg*/\n.weather_icon {\n  width: auto;\n  height: 100%;\n}\n.forecast_icon {\n  width: auto;\n  height: 45%;\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  background: black;\n  color: #333;\n  font-family: Noto Sans;\n  margin: 0;\n}\n\n/*weather svg*/\n.weather_icon {\n  width: auto;\n  height: 100%;\n}\n.forecast_icon {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
 	
 	// exports
 
