@@ -62,7 +62,6 @@ var Time = React.createClass({
     }
     let date, time, hour, datetimeStyle, meridiem
     if (this.state.time) {
-<<<<<<< HEAD
       let dateTime = this.state.time.split(" ")
       date = dateTime[0]
       date = this.parseDate(date)
@@ -80,15 +79,6 @@ var Time = React.createClass({
         }
       }
       time = hour + ":" + time[1] + meridiem
-=======
-      if (this.state.militaryTime) {
-        meridiem = ""
-      } else {
-        meridiem = parseInt(time[0]) >= 13 ? " PM" : " AM"
-      }
-      time = moment(this.state.time).format("h:mm") + meridiem
-      date = moment().format('dddd MMMM Do');
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
       let top = (this.state.coords[1] * 100) + "%"
       let left = (this.state.coords[0] * 100) + "%"
       datetimeStyle = {

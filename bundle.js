@@ -23849,7 +23849,6 @@
 	        datetimeStyle = void 0,
 	        meridiem = void 0;
 	    if (this.state.time) {
-<<<<<<< HEAD
 	      var dateTime = this.state.time.split(" ");
 	      date = dateTime[0];
 	      date = this.parseDate(date);
@@ -23867,15 +23866,6 @@
 	        }
 	      }
 	      time = hour + ":" + time[1] + meridiem;
-=======
-	      if (this.state.militaryTime) {
-	        meridiem = "";
-	      } else {
-	        meridiem = parseInt(time[0]) >= 13 ? " PM" : " AM";
-	      }
-	      time = moment(this.state.time).format("h:mm") + meridiem;
-	      date = moment().format('dddd MMMM Do');
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	      var top = this.state.coords[1] * 100 + "%";
 	      var left = this.state.coords[0] * 100 + "%";
 	      datetimeStyle = {
@@ -25101,20 +25091,10 @@
 	    };
 	}
 	
-<<<<<<< HEAD
-	    // get all weather information from firebase once
-	    axios.get("https://kagami-b6130.firebaseio.com/forecast.json").then(function (_ref) {
-	      var _ref$data = _ref.data,
-	          location = _ref$data.location,
-	          fahrenheit = _ref$data.fahrenheit,
-	          x = _ref$data.x,
-	          y = _ref$data.y;
-=======
 	function weekOfYear(mom, dow, doy) {
 	    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
 	        week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
 	        resWeek, resYear;
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	
 	    if (week < 1) {
 	        resYear = mom.year() - 1;
@@ -25127,35 +25107,11 @@
 	        resWeek = week;
 	    }
 	
-<<<<<<< HEAD
-	    // listen for all changes in the forecast object
-	    var forecast = firebase.database().ref().child('forecast');
-	    forecast.on('child_changed', function (forecast) {
-	      // when location changes get send out api to receive forecast infomation
-	      if (forecast.key !== "onMirror") {
-	        _this.setState(_defineProperty({}, forecast.key, forecast.val()));
-	      }
-	      if (forecast.key === "location" || forecast.key === "fahrenheit") {
-	        _this.fetch5Day();
-	      }
-	    });
-	    this.fetchLatLng();
-	    var time = firebase.database().ref().child('time');
-	    time.on('child_changed', function (time) {
-	      if (time.key === "location") {
-	        _this.fetchLatLng();
-	      }
-	    });
-	  },
-	  fetchLatLng: function fetchLatLng() {
-	    var _this2 = this;
-=======
 	    return {
 	        week: resWeek,
 	        year: resYear
 	    };
 	}
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	
 	function weeksInYear(year, dow, doy) {
 	    var weekOffset = firstWeekOffset(year, dow, doy),
@@ -25165,27 +25121,10 @@
 	
 	// FORMATTING
 	
-<<<<<<< HEAD
-	      var pos = results[0].geometry.location;
-	      _this2.fetchTime(pos.lat, pos.lng);
-	    });
-	  },
-	  fetchTime: function fetchTime(lat, lng) {
-	    var _this3 = this;
-	
-	    axios.get('http://api.timezonedb.com/v2/get-time-zone?key=ETSK142NQ362&format=json&by=position&lat=' + lat + '&lng=' + lng).then(function (time) {
-	      console.log("time");
-	      _this3.setState({ time: time.data.formatted });
-	    });
-	  },
-	  fetch5Day: function fetch5Day() {
-	    var _this4 = this;
-=======
 	addFormatToken('w', ['ww', 2], 'wo', 'week');
 	addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 	
 	// ALIASES
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	
 	addUnitAlias('week', 'w');
 	addUnitAlias('isoWeek', 'W');
@@ -25195,48 +25134,6 @@
 	addUnitPriority('week', 5);
 	addUnitPriority('isoWeek', 5);
 	
-<<<<<<< HEAD
-	    return list.map(function (day, indx) {
-	      return React.createElement(DisplayForecastInfo, {
-	        key: indx,
-	        day: moment().add(indx, 'days').calendar().split(' ')[0],
-	        time: moment(time).format("h:mm:ss a"),
-	        weather: day
-	      });
-	    });
-	  },
-	  render: function render() {
-	    var _state3 = this.state,
-	        apiWeather5Day = _state3.apiWeather5Day,
-	        x = _state3.x,
-	        y = _state3.y,
-	        time = _state3.time;
-	
-	    var fiveDayStyle = _defineProperty({
-	      position: 'absolute',
-	      display: 'flex',
-	      justifyContent: 'space-between',
-	      top: y * 100 + '%',
-	      left: x * 100 + '%',
-	      width: '70%',
-	      height: '30%'
-	    }, 'display', 'flex');
-	    console.log("forecast");
-	    return React.createElement(
-	      'div',
-	      null,
-	      apiWeather5Day && time ? React.createElement(
-	        'div',
-	        { style: fiveDayStyle },
-	        this.showFiveDayForcast()
-	      ) : React.createElement(
-	        'div',
-	        null,
-	        'Loading'
-	      )
-	    );
-	  }
-=======
 	// PARSING
 	
 	addRegexToken('w',  match1to2);
@@ -25246,7 +25143,6 @@
 	
 	addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
 	    week[token.substr(0, 1)] = toInt(input);
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	});
 	
 	// HELPERS
@@ -41532,7 +41428,7 @@
 	    this.fetchLatLng();
 	    var time = firebase.database().ref().child('time');
 	    time.on('child_changed', function (time) {
-	      if (time.key === "location" || time.key === "x" || time.key === "y" || time.key === "militaryTime") {
+	      if (time.key === "location") {
 	        _this.fetchLatLng();
 	      }
 	    });
@@ -41554,7 +41450,8 @@
 	  fetchTime: function fetchTime(lat, lng) {
 	    var _this3 = this;
 	
-	    axios.get('http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=' + lat + '&lng=' + lng).then(function (time) {
+	    axios.get('http://api.timezonedb.com/v2/get-time-zone?key=ETSK142NQ362&format=json&by=position&lat=' + lat + '&lng=' + lng).then(function (time) {
+	      console.log("time");
 	      _this3.setState({ time: time.data.formatted });
 	    });
 	  },
@@ -41600,9 +41497,10 @@
 	      justifyContent: 'space-between',
 	      top: y * 100 + '%',
 	      left: x * 100 + '%',
-	      width: '70%',
-	      height: '30%'
+	      width: '75%',
+	      height: '15%'
 	    }, 'display', 'flex');
+	    console.log("forecast");
 	    return React.createElement(
 	      'div',
 	      null,
@@ -41648,11 +41546,7 @@
 	    ),
 	    React.createElement(
 	      'div',
-<<<<<<< HEAD
 	      { style: { width: 200, height: 200 } },
-=======
-	      { style: { width: "45%", height: "45%" } },
->>>>>>> 768ee39f4113a84e9034af7bf942f98e33ab90b4
 	      React.createElement(Special, { className: 'forecast_icon' })
 	    ),
 	    React.createElement(
