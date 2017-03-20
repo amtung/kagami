@@ -54,7 +54,7 @@ var Forecast = React.createClass({
     const fiveDayStyle = {
       position: 'absolute',
       top: `${y*100}%`, 
-      left: `${y*100}%`, 
+      left: `${x*100}%`, 
       width: '50%', 
       display: 'flex'
     };
