@@ -23841,15 +23841,26 @@
 	    var date = void 0,
 	        time = void 0,
 	        hour = void 0,
-	        datetimeStyle = void 0;
+	        datetimeStyle = void 0,
+	        meridiem = void 0;
 	    if (this.state.time) {
 	      var dateTime = this.state.time.split(" ");
 	      date = dateTime[0];
 	      date = this.parseDate(date);
 	      time = dateTime[1].split(":");
-	      hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12;
-	      time = hour + ":" + time[1];
-	      console.log(time);
+	      if (this.state.militaryTime) {
+	        hour = time[0];
+	        meridiem = "";
+	      } else {
+	        hour = parseInt(time[0]);
+	        if (hour > 12) {
+	          meridiem = " PM";
+	          hour = hour - 12;
+	        } else {
+	          meridiem = " AM";
+	        }
+	      }
+	      time = hour + ":" + time[1] + meridiem;
 	      var top = this.state.coords[1] * 100 + "%";
 	      var left = this.state.coords[0] * 100 + "%";
 	      datetimeStyle = {

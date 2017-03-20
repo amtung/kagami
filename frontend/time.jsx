@@ -55,15 +55,25 @@ var Time = React.createClass({
       fontSize: "30px",
       textAlign: "center"
     }
-    let date, time, hour, datetimeStyle
+    let date, time, hour, datetimeStyle, meridiem
     if (this.state.time) {
       let dateTime = this.state.time.split(" ")
       date = dateTime[0]
       date = this.parseDate(date)
       time = dateTime[1].split(":")
-      hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12
-      time = hour + ":" + time[1]
-      console.log(time)
+      if (this.state.militaryTime) {
+        hour = time[0]
+        meridiem = ""
+      } else {
+        hour = parseInt(time[0])
+        if (hour > 12) {
+          meridiem = " PM" 
+          hour = hour - 12
+        } else {
+          meridiem = " AM"
+        }
+      }
+      time = hour + ":" + time[1] + meridiem
       let top = (this.state.coords[1] * 100) + "%"
       let left = (this.state.coords[0] * 100) + "%"
       datetimeStyle = {
