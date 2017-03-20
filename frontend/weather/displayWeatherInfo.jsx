@@ -18,7 +18,7 @@ const DisplayWeatherInfo = ({ weather }) => {
           <span>{`Low: ${Math.round(weather.main.temp_min)}˚`}</span>
         </p>
       </div>
-      <p style={{textAlign: 'center', fontSize: 20, margin: 0}}>{weather.weather[0].description}</p>
+      <p style={{textAlign: 'center', fontSize: 30, margin: 0}}>{weather.weather[0].description}</p>
     </div>
   );
 };

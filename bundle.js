@@ -39876,7 +39876,7 @@
 	    ),
 	    React.createElement(
 	      'p',
-	      { style: { textAlign: 'center', fontSize: 20, margin: 0 } },
+	      { style: { textAlign: 'center', fontSize: 30, margin: 0 } },
 	      weather.weather[0].description
 	    )
 	  );
@@ -41498,7 +41498,7 @@
 	      top: y * 100 + '%',
 	      left: x * 100 + '%',
 	      width: '75%',
-	      height: '7%'
+	      height: '9%'
 	    }, 'display', 'flex');
 	    console.log("forecast");
 	    return React.createElement(
@@ -41546,7 +41546,7 @@
 	    ),
 	    React.createElement(
 	      'div',
-	      { style: { width: 200, height: 200 } },
+	      { style: { width: 75, height: 75 } },
 	      React.createElement(Special, { className: 'forecast_icon' })
 	    ),
 	    React.createElement(

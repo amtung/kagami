@@ -89,7 +89,7 @@ var Forecast = React.createClass({
       top: `${y*100}%`, 
       left: `${x*100}%`, 
       width: '75%',
-      height: '7%',
+      height: '9%',
       display: 'flex'
     };
     console.log("forecast")
