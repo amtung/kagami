@@ -9,19 +9,10 @@ body {
   margin: 0;
 }
 
-/*weather*/
-.weather {
-}
-.mainWeather{
-  display: flex;
-}
-.tempContainer{
-  display: flex;
-  flex-direction: column;
-}
+/*weather svg*/
 .weather_icon {
-  width: 60%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 .forecast_icon {
   width: auto;

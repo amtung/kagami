@@ -56,6 +56,8 @@ var Weather = React.createClass({
       position: 'absolute',
       top: `${y*100}%`, 
       left: `${x*100}%`, 
+      width: '25%',
+      height: '25%',
     };
     return(
       <div style={style}>
