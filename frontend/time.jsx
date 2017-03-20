@@ -50,7 +50,7 @@ var Time = React.createClass({
   render: function() {
     let timeStyle = {
       color: "white",
-      fontSize: "72px",
+      fontSize: "84px",
       fontFamily: "Noto Sans",
       fontWeight: "bold",
       textAlign: "center"
@@ -60,15 +60,14 @@ var Time = React.createClass({
       fontSize: "30px",
       textAlign: "center"
     }
-    let date, time, hour, datetimeStyle
+    let date, time, hour, datetimeStyle, meridiem
     if (this.state.time) {
-      // let dateTime = this.state.time.split(" ")
-      // date = dateTime[0]
-      // date = this.parseDate(date)
-      // time = dateTime[1].split(":")
-      // hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12
-      // time = hour + ":" + time[1]
-      time = moment(this.state.time).format("h:mm")
+      if (this.state.militaryTime) {
+        meridiem = ""
+      } else {
+        meridiem = parseInt(time[0]) >= 13 ? " PM" : " AM"
+      }
+      time = moment(this.state.time).format("h:mm") + meridiem
       date = moment().format('dddd MMMM Do');
       let top = (this.state.coords[1] * 100) + "%"
       let left = (this.state.coords[0] * 100) + "%"
