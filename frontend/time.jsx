@@ -8,7 +8,7 @@ var Time = React.createClass({
   },
   fetchTime: function(lat, lng) {
     var that = this
-    axios.get("http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=" + lat + "&lng=" + lng).then(
+    axios.get("http://api.timezonedb.com/v2/get-time-zone?key=ETSK142NQ362&format=json&by=position&lat=" + lat + "&lng=" + lng).then(
       function(time) {
         that.setState({time: time.data.formatted})
       }
@@ -63,6 +63,7 @@ var Time = React.createClass({
       time = dateTime[1].split(":")
       hour = this.state.militaryTime ? time[0] : parseInt(time[0]) % 12
       time = hour + ":" + time[1]
+      console.log(time)
       let top = (this.state.coords[1] * 100) + "%"
       let left = (this.state.coords[0] * 100) + "%"
       datetimeStyle = {
