@@ -17,7 +17,6 @@ var Forecast = React.createClass({
     })
   },
   componentDidMount() {
-    console.log("data")
     // get all weather information from firebase once
     axios.get("https://kagami-b6130.firebaseio.com/forecast.json")
     .then(({ data : { location, fahrenheit, x, y}}) => {
@@ -51,13 +50,11 @@ var Forecast = React.createClass({
       return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyCRFcsIP8jJO4AGISrCI-Iou_en_j6rG08`)
     })
     .then(({data: {results}}) => {
-      console.log(results)
       const pos = results[0].geometry.location
       this.fetchTime(pos.lat, pos.lng)
     })
   },
   fetchTime(lat, lng) {
-    console.log(`http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=${lat}&lng=${lng}`)
     axios.get(`http://api.timezonedb.com/v2/get-time-zone?key=6XTYES98NFZD&format=json&by=position&lat=${lat}&lng=${lng}`)
     .then((time) => {
       this.setState({time: time.data.formatted})
@@ -73,8 +70,6 @@ var Forecast = React.createClass({
   },
   showFiveDayForcast(){
     const {apiWeather5Day: {list}, time} = this.state;
-    console.log(list)
-    console.log(moment().add(1,'days').calendar())
     return list.map((day, indx) => 
       <DisplayForecastInfo 
         key={indx} 
